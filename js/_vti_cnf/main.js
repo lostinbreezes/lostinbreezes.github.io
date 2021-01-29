@@ -1,4 +1,0 @@
-vti_encoding:SR|utf8-nl
-vti_timelastmodified:TR|29 Nov 2018 15:08:30 -0000
-vti_extenderversion:SR|12.0.0.6211
-vti_backlinkinfo:VX|blog.html about.html index.html gadget.html
