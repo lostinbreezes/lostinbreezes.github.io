@@ -2,12 +2,12 @@
 title: 关于破解水卡的尝试
 description: M1fare-crack
 slug: hello-world2
-date: 2022-03-06 00:00:00+0000
+date: 2023-03-11 19:23:16+0000
 image: cover.jpg
 categories:
-    - Example Category
+    - Mifare1
 tags:
-    - Example Tag
+    - M1卡
 ---
 
 Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!
