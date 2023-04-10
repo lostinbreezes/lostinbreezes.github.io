@@ -78,7 +78,7 @@ enabled = true
 provider = "disqus"
 
 [comments.disqusjs]
-shortname = "chococrush"
+shortname = "viocoff"
 apiUrl = ""
 apiKey = ""
 admin = ""
