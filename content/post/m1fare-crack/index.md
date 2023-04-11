@@ -1,7 +1,7 @@
 ---
 title: 关于破解水卡的尝试
-description: M1fare-crack
-slug: hello-world2
+description: Mifare-crack
+slug: mifare-crack
 date: 2023-03-11 19:23:16+0000
 image: cover.jpg
 toc: true
