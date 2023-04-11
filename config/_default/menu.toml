@@ -7,6 +7,14 @@
 #icon = "home"
 #newtab = true
 
+[[main]]
+identifier = "google"
+name = "Google"
+url = "https://www.google.com"
+[main.params]
+icon = "home"
+newtab = true
+
 [[social]]
 identifier = "github"
 name = "GitHub"
