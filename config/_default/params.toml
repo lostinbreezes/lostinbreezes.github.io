@@ -76,7 +76,7 @@ enabled = true
 ## Comments
 [comments]
 enabled = true
-provider = "disqus"
+provider = "waline"
 
 [comments.disqusjs]
 shortname = "viocoff"
@@ -104,13 +104,13 @@ clientSecret = ""
 autoCreateIssue = false
 
 [comments.waline]
-serverURL = ""
-lang = ""
+serverURL = "comments.fallen.wang"
+lang = "zh-cn"
 visitor = ""
 avatar = ""
-emoji = ["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"]
+emoji = ["https://cdn.jsdelivr.net/gh/walinejs/emojis/tieba"]
 requiredMeta = ["name", "email", "url"]
-placeholder = ""
+placeholder = "不要骂人捏"
 
 [comments.waline.locale]
 admin = "Admin"
