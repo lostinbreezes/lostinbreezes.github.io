@@ -4,6 +4,7 @@ description: M1fare-crack
 slug: hello-world2
 date: 2023-03-11 19:23:16+0000
 image: cover.jpg
+toc: true
 categories:
     - Mifare1
 tags:
