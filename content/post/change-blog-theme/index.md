@@ -26,3 +26,6 @@ GitHub默认push的是`main`分支：
 
 接着是评论区，默认的是disqus，由于一些众所周知的原因在大陆是无法访问的。在`params.toml`中似乎可以配置 其他评论插件，还没有仔细研究。一定要用disqus的话也可以使用disqusjs，或者用国外的vps写一个很简单的反向代理即可。~~不过相比之下Git talk更符合我的审美，况且本来就是部署在GitHub上的博客，何必再舍近求远呢~~  更新：waline永远滴神( ･´ω`･ )
 
+还有侧边目录又是一个大坑。不仅要在`params.toml`中`[artical]`添加`toc = true`，还需要将`markup.toml`中`unsafe = false`改为`unsafe = true`，否则无法加载html元素。此外，还有`[tableOfContents]`中`startLevel`需要设置为`1`。TAT
+
+待续
