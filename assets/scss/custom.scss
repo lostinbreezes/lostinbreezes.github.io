@@ -1,0 +1,346 @@
+// 页面基本配色
+:root {
+
+    // 文章内容图片圆角阴影
+    .article-page .main-article .article-content {
+        img {
+            max-width: 96% !important;
+            height: auto !important;
+            box-shadow: 0 0px 14px 2px #aeaeae85;
+            border-radius: 8px;
+        }
+    }
+
+    // 文章内容引用块左边样式
+    .article-content {
+        blockquote {
+            border-left: 6px solid #358b9a1f !important;
+            background: #3a97431f;
+        }
+    }
+
+    //light模式下的背景色
+    --body-background: #f6f9fd;
+    // light模式下的文章卡片配色
+    --card-background: #ffffff;
+    //文章卡片标题字体
+    ----card-text-color-main: rgb(36 41 46);
+    // 标题左栏小白条调整
+    --heading-border-size: 8px;
+    // 全局顶部边距
+    --main-top-padding: 30px;
+    // 全局卡片圆角
+    --card-border-radius: 25px;
+    //标签云卡片圆角
+    --tag-border-radius: 14px;
+    // 卡片间距
+    --section-separation: 32px;
+    // 行内代码背景色
+    --code-background-color: #f8f8f8;
+    // 行内代码前景色
+    --code-text-color: #e96900;
+    // 表格配色样式
+    --tr-even-background-color: #eff0fa54 !important;
+    // 全局字体大小
+    --article-font-size: 2rem;
+
+    &[data-scheme="dark"] {
+        //dark模式下的背景色
+        --body-background: #000;
+        //dark模式下文章卡片背景色
+        --card-background: #191c24;
+        //文章卡片标题字体
+        ----card-text-color-main: rgb(36 41 46);
+        // 表格配色样式
+        --tr-even-background-color: #1e242ecf !important;
+        // 行内代码背景色
+        --code-background-color: #ff6d1b17;
+        // 行内代码前景色
+        --code-text-color: #e96900;
+    }
+}
+
+// ---------------------------------------
+
+// 设置选中字体的区域背景颜色
+//修改选中颜色
+::selection {
+    color: #fff;
+    background: #34495e;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+
+    &:hover {
+        color: var(--accent-color-darker);
+    }
+
+    &.link {
+        color: #4288b9ad;
+        font-weight: 600;
+        padding: 0 2px;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// --------------------------------
+// 菜单栏样式
+// 下拉菜单改圆角样式
+.menu {
+    padding-left: 0;
+    list-style: none;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex-grow: 1;
+    font-size: 1.8rem;
+    background-color: var(--card-background);
+
+    box-shadow: var(--shadow-l2); //改个阴影
+    display: none;
+    margin: 0; //改为0
+    border-radius: 10px; //加个圆角
+    padding: 30px 30px;
+
+    @include respond(xl) {
+        padding: 15px 0;
+    }
+
+    &,
+    .menu-bottom-section {
+        gap: 30px;
+
+        @include respond(xl) {
+            gap: 25px;
+        }
+    }
+
+    &.show {
+        display: flex;
+    }
+
+    @include respond(md) {
+        align-items: flex-end;
+        display: flex;
+        background-color: transparent;
+        padding: 0;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    li {
+        position: relative;
+        vertical-align: middle;
+        padding: 0;
+
+        @include respond(md) {
+            width: 100%;
+        }
+
+        svg {
+            stroke-width: 1.33;
+
+            width: 20px;
+            height: 20px;
+        }
+
+        a {
+            height: 100%;
+            display: inline-flex;
+            align-items: center;
+            color: var(--body-text-color);
+            gap: var(--menu-icon-separation);
+        }
+
+        span {
+            flex: 1;
+        }
+
+        &.current {
+            a {
+                color: var(--accent-color);
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+// 社交菜单居中
+.social-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+
+    #设置居中 svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--body-text-color);
+        stroke-width: 1.33;
+    }
+}
+
+//---------------------------------------
+
+// 目录滚动条美化
+.widget--toc {
+    #TableOfContents {
+        max-height: 65vh;
+
+        ol,
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin: 10px 10px;
+
+            &>ol,
+            &>ul {
+                margin-top: 10px;
+                padding-left: 10px;
+                margin-bottom: -5px;
+
+                &>li:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+//菜单滚动条美化 
+.menu::-webkit-scrollbar {
+    display: none;
+}
+
+// 全局滚动条美化
+html {
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #a8bbbf;
+    }
+}
+
+//------------------------------------------------
+
+//友情链接三栏
+@media (min-width: 1024px) {
+    .article-list--compact.links {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        background: none;
+        box-shadow: none;
+        gap: 1rem;
+
+        article {
+            background: var(--card-background);
+            border: none;
+            box-shadow: var(--shadow-l2);
+            margin-bottom: 8px;
+            border-radius: var(--card-border-radius);
+
+            &:nth-child(odd) {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+//----------------------------------------
+
+//----------------------------------------------
+
+//首页欢迎字幅板块样式
+.welcome {
+    color: var(--card-text-color-main);
+    background: var(--card-background);
+    box-shadow: var(--shadow-l2);
+    border-radius: var(--card-border-radius);
+}
+
+//---------------------------------------
+
+// 页面引入字体
+// body {
+//     /* Screen version */
+//     font-family: "LXGW WenKai Screen", sans-serif;
+//   }
+
+//----------------------------------------------
+
+//文章封面高度更改
+.article-list article .article-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+
+    @include respond(md) {
+        height: 200px;
+    }
+
+    @include respond(xl) {
+        height: 305px;
+    }
+}
+
+//-----------------------------------------------
+
+//全局页面布局间距调整
+.main-container {
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 0 15px;
+    gap: var(--section-separation);
+    padding-top: var(--main-top-padding);
+
+    @include respond(md) {
+        padding: 0 80px;
+    }
+}
+
+//-----------------------------------------------
+
+// 修复引用块内容
+a {
+    word-break: break-all;
+}
+
+code {
+    word-break: break-all;
+}
+
+
+//-----------------------------------------------------
+
+//全局页面小图片样式微调
+.article-list--compact article .article-image img {
+    width: var(--image-size);
+    height: var(--image-size);
+    object-fit: cover;
+    border-radius: 27%;
+}
