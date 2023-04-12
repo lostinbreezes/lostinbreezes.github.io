@@ -8,11 +8,11 @@
 #newtab = true
 
 [[main]]
-identifier = "google"
-name = "Google"
-url = "https://www.google.com"
+identifier = "mail"
+name = "Mail"
+url = "<a href="mailto:lostinbreezes@gmail.com">"
 [main.params]
-icon = "home"
+icon = "mail"
 newtab = true
 
 [[social]]
