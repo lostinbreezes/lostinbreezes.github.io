@@ -10,7 +10,7 @@
 [[main]]
 identifier = "mail"
 name = "Mail"
-url = "<a href="mailto:lostinbreezes@gmail.com">"
+url = "mailto:lostinbreezes@gmail.com"
 [main.params]
 icon = "mail"
 newtab = true
