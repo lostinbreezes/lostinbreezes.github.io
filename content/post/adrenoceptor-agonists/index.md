@@ -10,4 +10,4 @@ tags:
     - 肾上腺素受体激动药
 ---
 
- <iframe style="width: 100%; height: 100%" src="https://github.com/lostinbreezes/storage/adrenoceptor_agonists.html" frameborder="0"></iframe>
+ <iframe style="width: 100%; height: 100%" src="adrenoceptor_agonists.html" frameborder="0"></iframe>
