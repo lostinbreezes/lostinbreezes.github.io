@@ -12,7 +12,7 @@ links:
     image: https://s.midishow.net/static/assets/svg/logo.svg
 
   - title: Gmail
-    description: GitHub is the world's largest software development platform.
+    description: Tell me what you're thinking.
     website: mailto:lostinbreezes@github.io
     image: https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_server_1x.png
 menu:
