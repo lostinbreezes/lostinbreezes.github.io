@@ -10,6 +10,11 @@ links:
     description: MidiShow 是一个 MIDI 音乐创作者交流学习的地方。
     website: https://www.midishow.com/u/%E6%88%91%E9%93%A0%E4%BB%96%E8%B6%85
     image: https://s.midishow.net/static/assets/svg/logo.svg
+
+  - title: Gmail
+    description: GitHub is the world's largest software development platform.
+    website: mailto:lostinbreezes@github.io
+    image: https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_server_1x.png
 menu:
     main: 
         weight: 4
