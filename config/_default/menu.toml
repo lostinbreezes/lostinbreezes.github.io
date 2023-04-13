@@ -7,14 +7,6 @@
 #icon = "home"
 #newtab = true
 
-[[main]]
-identifier = "mail"
-name = "Mail"
-url = "mail.md"
-[main.params]
-icon = "mail"
-newtab = true
-
 [[social]]
 identifier = "github"
 name = "GitHub"
