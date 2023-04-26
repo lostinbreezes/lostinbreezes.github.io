@@ -13,7 +13,7 @@ links:
 
   - title: Gmail
     description: Tell me what you're thinking.
-    website: mailto:lostinbreezes@github.io
+    website: mailto:lostinbreezes@gmail.com
     image: https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_server_1x.png
 menu:
     main: 
