@@ -5,8 +5,7 @@ rssFullContent = true
 
 [footer]
 since = 2020
-customText = "苏ICP备2023005278"
-<a href="https://beian.miit.gov.cn/" target="_blank"></a>
+customText = "https://beian.miit.gov.cn/"
 
 [dateFormat]
 published = "Jan 02, 2006"
