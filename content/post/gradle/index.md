@@ -1,6 +1,6 @@
 ---
 title: gradlew构建apk时报错
-description: 记录一下踩的坑
+description: 呃呃呃
 slug: gradle
 date: 2020-12-31 9:03:27+0000
 image: cover.jpg
@@ -18,11 +18,11 @@ tags:
 >
 > ③**Fuck Baidu**
 
----
-
 ~~百度你就吃烂钱吧  迟早倒闭 还有csdn  呕  屏蔽csdn 人人有责~~
 
 ~~许多问题去bing 上搜索效率能提高十倍  会魔法的直接去谷歌和Stack Overflow  这不比粪坑里淘金舒服？~~
+
+---
 
 在GitHub 上看到一个比较有意思的开源项目，但是只有源码没有`release `，所以`clone `到本地尝试运行`gradlew.bat` 编译。命令行一闪而过，还没看清报错信息就没了。之前没有接触过gradle ,粪坑里搜了半天全是csdn 互相抄的不知所云的🐶💩，最后在某小众论坛看到有人提了一嘴，要在命令行中运行。
 
