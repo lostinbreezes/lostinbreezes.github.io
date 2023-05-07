@@ -2,7 +2,7 @@
 title: gradlew构建apk时报错
 description: 呃呃呃
 slug: gradle
-date: 2020-12-31 9:03:27+0000
+date: 2020-12-31 9:03:27+0800
 image: cover.jpg
 categories:
     - Java

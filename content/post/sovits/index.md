@@ -2,7 +2,7 @@
 title: 云端部署so-vits-svc流程
 description: 人工智能歌声合成
 slug: sovits
-date: 2023-04-23 23:57:19+0000
+date: 2023-04-23 23:57:19+0800
 image: cover.jpg
 categories:
     - 人工智能

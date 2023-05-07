@@ -2,7 +2,7 @@
 title: 一次破解水卡的尝试
 description: Mifare-crack
 slug: mifare-crack
-date: 2023-03-11 19:23:16+0000
+date: 2023-03-11 19:23:16+0800
 image: cover.jpg
 toc: true
 categories:

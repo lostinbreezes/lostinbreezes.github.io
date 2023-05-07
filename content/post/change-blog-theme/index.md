@@ -2,7 +2,7 @@
 title: 给博客换了个stack主题
 description: 记录一下踩的坑
 slug: stack-build
-date: 2023-04-07 11:53:14+0000
+date: 2023-04-07 11:53:14+0800
 image: cover.jpg
 categories:
     - 前端
