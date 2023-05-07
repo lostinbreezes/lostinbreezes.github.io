@@ -9,7 +9,7 @@ categories:
 tags:
     - plan
 ---
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=65538&auto=1&height=66"></iframe>
+#<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=65538&auto=1&height=66"></iframe>
 
 前一个博客因为**不可抗力**挂了，到今天也快两年了，抽空搞了个新的。可惜好多文章没有备份，有点对不起曾经关注我支持我的朋友们。仅存的几篇2022年及之前的文章有些还涉及***魔法***之类的敏感技术，现在域名备案了不太方便再放出来 TAT~~（所谓不可抗力其实是vps服务商跑路了......这个故事告诉我们**一定要备份！一定要备份！一定要备份！**）~~
 
