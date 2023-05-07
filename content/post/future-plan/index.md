@@ -5,9 +5,9 @@ slug: future-plan
 date: 2023-05-07 14:58:22+0000
 image: cover.jpg
 categories:
-    - n
+    - plan
 tags:
-    - n
+    - plan
 ---
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=65538&auto=1&height=66"></iframe>
 
