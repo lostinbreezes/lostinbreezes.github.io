@@ -2,12 +2,12 @@
 title: 未来规划
 description: Null
 slug: future-plan
-date: 2023-05-07 14:50:58+0000
+date: 2023-05-07 14:58:22+0000
 image: cover.jpg
 categories:
-    - undefined
+    - null
 tags:
-    - undefined
+    - null
 ---
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=65538&auto=1&height=66"></iframe>
@@ -47,4 +47,4 @@ else:
     print("Go practice")
 ```
 
- 
+  
