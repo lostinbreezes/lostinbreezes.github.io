@@ -3,7 +3,7 @@ baseurl = "https://fallen.wang"
 languageCode = "zh-cn"
 paginate = 5
 title = "沙多多的奇思妙想"
-description = "111"
+description = "undefined"
 
 # Theme i18n support
 # Available values: en, fr, id, ja, ko, pt-br, zh-cn, zh-tw, es, de, nl, it, th, el, uk, ar

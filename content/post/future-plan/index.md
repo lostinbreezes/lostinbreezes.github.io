@@ -2,7 +2,7 @@
 title: 未来规划
 description: Null
 slug: future-plan
-date: 2023-5-7 14:50:58+0000
+date: 2023-05-07 14:50:58+0000
 image: cover.jpg
 categories:
     - undefined
@@ -47,3 +47,4 @@ else:
     print("Go practice")
 ```
 
+ 
