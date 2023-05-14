@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv="Content-Language" content="zh-cn">
   <style>
     .container {
       position: fixed;
-      bottom: 20px;
+      top: 20px;
       left: 20px;
     }
 
     .button {
       display: inline-block;
       padding: 10px;
-      background-image: url('button1.png');
+      background-image: url('http://img.fallen.wang/likebutton.png');
       background-repeat: no-repeat;
       background-position: center;
       background-color: transparent;
@@ -27,8 +28,11 @@
 </head>
 <body>
   <div class="container">
-    <button id="btn" class="button" onclick="buttonClick()">按钮</button>
-    <span id="count" class="count">0</span>
+    <button id="btn" class="button" onclick="buttonClick()" style="width: 150px; height: 150px">　</button>
+
+  	<div style="position: absolute; width: 163px; height: 100px; z-index: 1; left:125px; top:70px" id="layer1">
+<span class="count"><font size="5">（    <font size="5"><span id="count" class="count">0</span></font> ）</font></span></div>
+
   </div>
 
   <script>
@@ -46,7 +50,7 @@
         showAlert();
       } else {
         // 切换按钮图案
-        button.style.backgroundImage = "url('button2.png')";
+        button.style.backgroundImage = "url('http://img.fallen.wang/likebutton2.png')";
         // 禁用按钮
         disableButton();
 
@@ -73,5 +77,5 @@
       alert("您已经按过按钮了！");
     }
   </script>
-</body>
+	</body>
 </html>
