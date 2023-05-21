@@ -12,6 +12,29 @@ tags:
 typora-copy-images-to: ./
 ---
 
+<body>
+  <div id="dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px;">
+      <p><font color=#FF0000>**本文仅为探讨M1 卡加密原理，文中所述卡片均已格式化并物理销毁，如有利用该算法恶意刷取金额，所造成的任何问题及由此产生的一切后果由您自行承担！**</font></p>
+      <button onclick="closeDialog()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;">我已知晓并同意</button>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      openDialog();
+    }
+
+    function openDialog() {
+      document.getElementById('dialog').style.display = 'block';
+    }
+    
+    function closeDialog() {
+      document.getElementById('dialog').style.display = 'none';
+    }
+  </script>
+</body>
+
 **<font color=#FF6100>仅供技术交流使用，请勿用于违法用途，否则后果自负！</font>**
 
 [TOC]
