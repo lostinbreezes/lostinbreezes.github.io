@@ -149,23 +149,26 @@ E.血管炎
 
 ><font color=#1e90ff>**<sup>4</sup>9版教材无相关表述**</font>：1~9版教材均无相关表述。
 
+<style>
+  .heimu {
+      .heimu, .heimu a, a .heimu, .heimu a.new {
+      background-color: #252525;
+      color: #252525;
+      text-shadow: none;
+  }
+  .heimu:hover, .heimu:active,
+  .heimu:hover .heimu, .heimu:active .heimu {
+      color: white !important;
+  }
+ .heimu:hover a, a:hover .heimu,
+ .heimu:active a, a:active .heimu {
+     color: lightblue !important;
+ }
+ .heimu:hover .new, .heimu .new:hover, .new:hover .heimu,
+ .heimu:active .new, .heimu .new:active, .new:active .heimu {
+     color: #BA0000 !important;
+ }
+  }
+</style>
+<span class="heimu" title="bbb">ccc</span>
 
-  <style>
-    .rectangle {
-      display: inline-block;
-      background-color: black;
-      color: white;
-      padding: 5px;
-      cursor: pointer;
-    }
-  </style>
-  <div class="rectangle" onclick="toggleText(this)">▓▓▓▓▓▓▓▓▓</div>
-  <script>
-    function toggleText(element) {
-      if (element.innerHTML === '▓▓▓▓▓▓▓▓▓') {
-        element.innerHTML = '教材上没有你还考？出题老头多少沾点唐氏综合征';
-      } else {
-        element.innerHTML = '▓▓▓▓▓▓▓▓▓';
-      }
-    }
-  </script>
