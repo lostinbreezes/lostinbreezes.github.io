@@ -1,5 +1,14 @@
-心血管系统疾病
-
+---
+title: 心血管系统病理
+description: 9版病理学P153
+slug: cardiovascular
+date: 2023-05-25 00:34:22+0800
+image: cover.png
+categories:
+    - 病理学
+tags:
+    - 心血管系统病理
+---
 <script type="text/javascript">alert("病理还得看贺银成。贺门！");</script>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=857881&auto=0&height=66"></iframe>
 
@@ -149,5 +158,26 @@ E.血管炎
 
 ><font color=#1e90ff>**<sup>4</sup>9版教材无相关表述**</font>：1~9版教材均无相关表述。
 
-
+<style>
+  .heimu {
+      .heimu, .heimu a, a .heimu, .heimu a.new {
+      background-color: #252525;
+      color: #252525;
+      text-shadow: none;
+  }
+  .heimu:hover, .heimu:active,
+  .heimu:hover .heimu, .heimu:active .heimu {
+      color: white !important;
+  }
+ .heimu:hover a, a:hover .heimu,
+ .heimu:active a, a:active .heimu {
+     color: lightblue !important;
+ }
+ .heimu:hover .new, .heimu .new:hover, .new:hover .heimu,
+ .heimu:active .new, .heimu .new:active, .new:active .heimu {
+     color: #BA0000 !important;
+ }
+  }
+</style>
+<span class="heimu" title="bbb">ccc</span>
 
