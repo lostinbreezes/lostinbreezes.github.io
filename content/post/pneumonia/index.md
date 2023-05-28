@@ -1,7 +1,7 @@
 ---
-title: 细菌性肺炎、病毒性肺炎和支原体肺炎
+title: 呼吸系统病理（待续）
 description: 9版病理学P185
-slug: pneumonia
+slug: respiratory
 date: 2023-05-19 00:03:14+0800
 image: cover.jpg
 categories:
