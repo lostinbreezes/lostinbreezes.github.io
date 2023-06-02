@@ -57,17 +57,29 @@ tags:
 |**异柠檬酸脱氢酶**|反馈抑制|ATP|ADP 、Ca<sup>2+</sup>|
 |**α -酮戊二酸脱氢酶**|反馈抑制|ATP 、NADH 、琥珀酰CoA|Ca<sup>2+</sup>|
 
+***
+
 # 丙氨酸-葡萄糖循环
 
-氨在人体内有毒在血液中以丙氨酸或谷氨酰胺两种形式运输。
+![图源9版生化教材P182](glu-ala-cycle.png)
+
+<font color=#40e0d0>**氨**</font>在人体内有毒，在血液中以<font color=#40e0d0>**丙氨酸**</font>或<font color=#40e0d0>**谷氨酰胺**</font>两种形式运输。
 
 ## 过程
 
-骨骼肌通过转氨基作用将<font color=#40e0d0>**丙酮酸**</font>转化为<font color=#40e0d0>**丙氨酸**</font>，经血液到达肝脏后通过联合脱氨基作用生成<font color=#40e0d0>**丙酮酸**</font>并释放<font color=#40e0d0>**氨**</font>，<font color=#40e0d0>**丙酮酸**</font>用于合成<font color=#40e0d0>**葡萄糖**</font>，<font color=#40e0d0>**氨**</font>
+骨骼肌通过转氨基作用将<font color=#40e0d0>**丙酮酸**</font>转化为<font color=#40e0d0>**丙氨酸**</font>，经血液到达肝脏后通过联合脱氨基作用生成<font color=#40e0d0>**丙酮酸**</font>并释放<font color=#40e0d0>**氨**</font>，<font color=#40e0d0>**丙酮酸**</font>经糖异生合成<font color=#40e0d0>**葡萄糖**</font>，<font color=#40e0d0>**氨**</font>用于合成<font color=#40e0d0>**尿素**</font>。<font color=#40e0d0>**葡萄糖**</font>经血到肌肉，糖酵解成为<font color=#40e0d0>**丙酮酸**</font>。
+
+## 意义
+
+使肌肉中的<font color=#40e0d0>**氨**</font>以无毒的<font color=#40e0d0>**丙氨酸**</font>形式运送至肝，同时肝又提供了生成<font color=#40e0d0>**丙酮酸**</font>的葡萄糖。
+
+***
 
 # 柠檬酸-丙酮酸循环
 
 # 鸟氨酸循环
+
+
 
 # 乳酸循环
 
