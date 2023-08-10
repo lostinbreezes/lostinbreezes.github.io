@@ -1,8 +1,8 @@
 ---
 title: 淋巴造血系统病理
 description: 9版病理学P208
-slug: digestive
-date: 2023-06-11 00:00:12+0800
+slug: lympha
+date: 2023-07-19 01:03:37+0800
 image: cover.jpg
 categories:
     - 病理学
