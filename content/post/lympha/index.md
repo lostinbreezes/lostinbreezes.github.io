@@ -1,5 +1,5 @@
 ---
-title: 淋巴造血系统病理
+title: 淋巴造血系统病理（未完待续）
 description: 9版病理学P208
 slug: lympha
 date: 2023-07-19 01:03:37+0800
