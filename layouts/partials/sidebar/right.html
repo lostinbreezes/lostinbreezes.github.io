@@ -1,0 +1,16 @@
+{{- $scope := default "homepage" .Scope -}}
+{{- $context := .Context -}}
+{{- with (index .Context.Site.Params.widgets $scope) -}}
+    <aside class="sidebar right-sidebar sticky">
+        {{ range $widget := . }}
+            {{ if templates.Exists (printf "partials/widget/%s.html" .type) }}
+                {{ partial (printf "widget/%s" .type) (dict "Context" $context "Params" .params) }}
+            {{ else }}
+                {{ warnf "Widget %s not found" .type }}
+            {{ end }}
+        {{ end }}
+        <div style="height: 30%;width: 30%">
+            <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=4gAmsOskyL921TwxZGdrq3NbkFu-hJm8dDfoHJsn25Q"></script>
+        </div>
+    </aside>
+{{ end }}
