@@ -5,31 +5,31 @@ rssFullContent = true
 
 
 [footer.runtime1]
-other = "本博客已稳定运行"
+other = "This blog has been running stably for"
 
 [footer.runtime2]
-other = "天"
+other = "days"
 
 [footer.runtime3]
-other = "小时"
+other = "hours"
 
 [footer.runtime4]
-other = "分钟"
+other = "minutes"
 
 [footer.count1]
-other = "共发表"
+other = "Published"
 
 [footer.count2]
-other = "篇文章 · 总计"
+other = "articles in total · totaling"
 
 [footer.count3]
-other = "字"
+other = "words"
 
 [footer.pv1]
-other = "本站总访问量"
+other = "The total number of visits to this site is"
 
 [footer.pv2]
-other = "次"
+other = "times"
 
 
 [dateFormat]
