@@ -13,7 +13,7 @@
             {{ range (where .Site.Pages "Kind" "page" )}}
             {{$scratch.Add "total" .WordCount}}
             {{ end }}
-            {{ T "footer.count1" }} {{ len (where .Site.RegularPages "Section" "post") }} 篇 {{ div ($scratch.Get "total") 1000.0 | lang.FormatNumber 2 }} k 字
+            发表了 {{ len (where .Site.RegularPages "Section" "post") }} 篇博文共 {{ div ($scratch.Get "total") 1000.0 | lang.FormatNumber 2 }} k 字
         </div>
         <div>
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
