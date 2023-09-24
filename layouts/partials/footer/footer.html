@@ -16,6 +16,8 @@
             {{ T "footer.count1" }} {{ len (where .Site.RegularPages "Section" "post") }} {{ T "footer.count2" }} {{ div ($scratch.Get "total") 1000.0 | lang.FormatNumber 2 }} k {{ T "footer.count3" }}
         </div>
         <div>
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
             <span id="busuanzi_container_site_pv">{{ T "footer.pv1" }}<span id="busuanzi_value_site_pv"></span>{{ T "footer.pv2" }}</span>
         </div>
 </section>
