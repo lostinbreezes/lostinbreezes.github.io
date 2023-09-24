@@ -3,34 +3,9 @@ mainSections = ["post"]
 # Output page's full content in RSS.
 rssFullContent = true
 
-
-[footer.runtime1]
-other = "本博客已稳定运行"
-
-[footer.runtime2]
-other = "days"
-
-[footer.runtime3]
-other = "小时"
-
-[footer.runtime4]
-other = "分钟"
-
-[footer.count1]
-other = "共发表"
-
-[footer.count2]
-other = "篇文章 · 总计"
-
-[footer.count3]
-other = "字"
-
-[footer.pv1]
-other = "本站总访问量"
-
-[footer.pv2]
-other = "次"
-
+[footer]
+since = 2020
+customText = '<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1931198850&auto=0&height=66"></iframe>'
 
 [dateFormat]
 published = "Jan 02, 2006"
