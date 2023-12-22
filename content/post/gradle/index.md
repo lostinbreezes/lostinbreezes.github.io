@@ -10,7 +10,7 @@ tags:
     - gradle
 ---
 
-<link rel="stylesheet" href="https://raw.githubusercontent.com/lostinbreezes/lostinbreezes.github.io/main/css/hidden-text.css">
+<link rel="stylesheet" href="https://zh.moegirl.org.cn/load.php?debug=false&lang=zh-cn&modules=ext.gadget.GothicMoe%2Cmoeskin-styles%2Csite-styles&only=styles&skin=moeskin.css"/>
 
 > ①**<font color=#ff0000>简</font><font color=#ffa3c7>中</font><font color=#b5a3a7>互</font><font color=#f00fff>联</font><font color=#3d9142>网</font><font color=#4169e1>社</font><font color=#7fff00>区</font><font color=#ffd700>就</font><font color=#802a2a>是</font><font color=#4169e1>一</font><font color=#40e0d0>个</font><font color=#fff500>粪</font><font color=#33a1c9>坑</font>**
 >
