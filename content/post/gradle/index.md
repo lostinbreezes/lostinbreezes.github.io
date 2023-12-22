@@ -78,4 +78,4 @@ gradle assembleDebug
 
 这样生成的是debug调试包，已经签名可以直接安装。
 
-<iframe src="heimu.html" width="50" height="50" frameborder="0"></iframe>
+<iframe src="heimu.html" scrolling="no" width="50" height="50" frameborder="0"></iframe>
