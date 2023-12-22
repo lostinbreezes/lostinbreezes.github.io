@@ -10,7 +10,7 @@ tags:
     - gradle
 ---
 
-感悟：
+<link rel="stylesheet" href="../css/hidden-text.css">
 
 > ①**<font color=#ff0000>简</font><font color=#ffa3c7>中</font><font color=#b5a3a7>互</font><font color=#f00fff>联</font><font color=#3d9142>网</font><font color=#4169e1>社</font><font color=#7fff00>区</font><font color=#ffd700>就</font><font color=#802a2a>是</font><font color=#4169e1>一</font><font color=#40e0d0>个</font><font color=#fff500>粪</font><font color=#33a1c9>坑</font>**
 >
@@ -78,3 +78,7 @@ gradle assembleDebug
 ```
 
 这样生成的是debug调试包，已经签名可以直接安装。
+
+<div class="hidden-text">测试</div>
+
+测试
