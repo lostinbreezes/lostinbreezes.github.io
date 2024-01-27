@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mifare1 on 沙多多的奇思妙想</title><link>https://fallen.wang/categories/mifare1/</link><description>Recent content in Mifare1 on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 11 Mar 2023 19:23:16 +0800</lastBuildDate><atom:link href="https://fallen.wang/categories/mifare1/index.xml" rel="self" type="application/rss+xml"/><item><title>一次破解水卡的尝试</title><link>https://fallen.wang/p/mifare-crack/</link><pubDate>Sat, 11 Mar 2023 19:23:16 +0800</pubDate><guid>https://fallen.wang/p/mifare-crack/</guid><description>&lt;img src="https://fallen.wang/p/mifare-crack/cover.jpg" alt="Featured image of post 一次破解水卡的尝试" />&lt;body>
+&lt;div id="dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999;">
+&lt;div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px;">
+&lt;p>&lt;font color=#FF0000>**本文仅为探讨M1 卡加密原理，文中所述卡片均已格式化并物理销毁，如有利用该算法恶意刷取金额，所造成的任何问题及由此产生的一切后果由您自行承担！**&lt;/font>&lt;/p>
+&lt;button onclick="closeDialog()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;">我已知晓并同意&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;script>
+window.onload = function() {
+openDialog();
+}
+function openDialog() {
+document.getElementById('dialog').style.display = 'block';
+}
+function closeDialog() {
+document.getElementById('dialog').style.display = 'none';
+}
+&lt;/script>
+&lt;/body>
+&lt;p>&lt;strong>&lt;font color=#FF6100>仅供技术交流使用，请勿用于违法用途，否则后果自负！&lt;/font>&lt;/strong>&lt;/p>
+&lt;p>[TOC]&lt;/p>
+&lt;h1 id="前言">前言&lt;/h1>
+&lt;p>本文只针对IC 卡下属的Mifare Classic 1k (简称M1 卡，目前国内大多数校园卡、公交卡、门禁卡等都在此列)，其包含了16 个扇区，每个扇区有0-3 共4 个块，每块16 字节，共1024 字节。&lt;/p>
+&lt;p>&lt;strong>只对离线数据有效！&lt;/strong>（例如，充值后需要去激活器上刷卡激活的卡片。部分卡片同时存储了离线数据和在线数据，如即充即用的圈存数据，和充值后需要刷卡激活的水卡数据，则只能修改后者。在线数据存储在服务器中，即使修改了本地缓存也无效）&lt;/p>
+&lt;p>如何确认自己的卡是否属于M1 卡？可以使用带NFC功能的安卓手机进行检测。（参考正文第一段&lt;strong>准备&lt;/strong>中的Mifare Classic Tool 软件）将卡片紧贴手机，打开软件，选择工具&amp;gt;显示标签信息&amp;gt;若出现如下截图：&lt;img src="https://fallen.wang/p/mifare-crack/mct.jpg"
+width="1080"
+height="2400"
+srcset="https://fallen.wang/p/mifare-crack/mct_hu168d064fece5b0f17bdc512d791cea9d_222913_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/mifare-crack/mct_hu168d064fece5b0f17bdc512d791cea9d_222913_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="注意Tag Type属性"
+class="gallery-image"
+data-flex-grow="45"
+data-flex-basis="108px"
+>&lt;/p>
+&lt;p>标签类型为MIFARE Classic 的即为M1 卡，其中SAK 值为08 代表s50 型号，18 代表s70 型号&lt;/p>
+&lt;h1 id="一准备">一.准备&lt;/h1>
+&lt;p>·需要准备的硬件：&lt;/p>
+&lt;blockquote>
+&lt;p>一台有USB 接口的计算机&lt;/p>
+&lt;p>一部有NFC 功能的安卓手机&lt;/p>
+&lt;p>PN532 ，某宝上有集成板，约30 元&lt;/p>
+&lt;p>若干张水卡&lt;/p>
+&lt;p>一个健全的大脑&lt;/p>
+&lt;/blockquote>
+&lt;p>·需要准备的软件：&lt;/p>
+&lt;blockquote>
+&lt;p>PC端：PN532 配套软件（链接：https://pan.baidu.com/s/1-FrJKKnw1JbR4lnyaRR22A?pwd=wa2v 提取码：wa2v 解压密码：pn532&lt;/p>
+&lt;p>安卓端：Mifare Classic Tool（链接：https://pan.baidu.com/s/11x10vu_GMiNZoJp5igiaHg?pwd=zc0y 提取码：zc0y ）&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="二读取数据">二.读取数据&lt;/h1>
+&lt;p>安装pn532 驱动后打开软件，准备若干张水卡。依次点击串口，连接设备，开始解卡，此时软件开始读取数据。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/pn532start.png"
+width="430"
+height="291"
+srcset="https://fallen.wang/p/mifare-crack/pn532start_hu4989f62d343d09ed632bbecf1095d516_30589_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/pn532start_hu4989f62d343d09ed632bbecf1095d516_30589_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="主界面"
+class="gallery-image"
+data-flex-grow="147"
+data-flex-basis="354px"
+>&lt;/p>
+&lt;p>成功破解后当前卡片的数据会在表A 中列出。可以看到每个扇区都有4 个块，其中0-2 块储存数据，3 块储存密钥及控制位。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/dumpintro.png"
+width="404"
+height="193"
+srcset="https://fallen.wang/p/mifare-crack/dumpintro_hu65593e83ec2e65c126e7de0092cf0076_7973_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/dumpintro_hu65593e83ec2e65c126e7de0092cf0076_7973_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="扇区和块"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="502px"
+>&lt;/p>
+&lt;h1 id="三分析数据">三.分析数据&lt;/h1>
+&lt;p>将读取到的数据保存，然后去消费一定数量金额，再次解卡。将上一次保存的数据导入到表B 中，然后对比数据。可以发现，只有第10 扇区数据发生了变化，因此可以得出结论，金额数据存储在第10 扇区。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/908906.png"
+width="851"
+height="180"
+srcset="https://fallen.wang/p/mifare-crack/908906_hu906b06ce2a056f8da89ae18215a9102a_16014_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/908906_hu906b06ce2a056f8da89ae18215a9102a_16014_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="数据对比"
+class="gallery-image"
+data-flex-grow="472"
+data-flex-basis="1134px"
+>&lt;/p>
+&lt;p>观察表A和表B前两个块的数据发现，第三、四字节的数据分别为&lt;code>038A&lt;/code> ，&lt;code>038C&lt;/code> ，&lt;code>038E&lt;/code> ，成等差数列。打开计算机自带的计算器，切换到程序员模式，选择十六进制（HEX ），输入&lt;code>038A&lt;/code> ，得到对应的十进制数值（DEC ）为906 。而此时卡里的金额为9.06 元，前一次消费时金额9.08 也与&lt;code>038C&lt;/code> 对应，基本可以确定前四个字节存储的是金额。由于消费金额较少（0.02 ），可能会出现如图两块数据只有一块数据改变的情况。金额一旦确定，剩下的便是校验位的问题。为防止篡改，卡片会有一个安全算法，对金额进行加密。由于中间部分没有发生变化，所以可以合理假设最后两个字节为校验位。&lt;/p>
+&lt;p>一般来说校验位算法比较复杂，可能涉及异或、取反等多种运算，而我们现有的数据太少难以发现规律，因此首先可以考虑克隆。由于掌握了密钥，我们可以对卡里的数据进行复制和更改。消费掉一定金额后，将表A的数据再次刷入，然后观察读卡器，金额又变回了9.06 ，这一思路是可行的。但是多次以同一金额重复刷卡测试会导致卡片锁死（惨痛教训），除非本来卡内金额较多可以支撑长时间使用外，我们不得不考虑更改数据。&lt;/p>
+&lt;p>然而要更改数据必然涉及到校验位算法。前前后后忙活了近一年，仍然没有取得实质性进展。然而某一天阅读维修文档时发现，有一类卡片报错是由于&lt;u>CRC 校验错误&lt;/u>引起的。这给我带来了灵感，我并不需要知道具体的校验算法是什么，只要能得到校验后的数据就行。可以参考这个在线计算CRC 的网站：https://www.lammertbies.nl/comm/info/crc-calculation，选择HEX 模式，将第一块的数据复制进去，得到&lt;code>0000038a00000000000000000000271f&lt;/code> 的CRC-16 校验值为&lt;code>F0BE&lt;/code> ，而第二块数据&lt;code>0000038c000000000000000000003997&lt;/code> 的CRC-16 校验值也是&lt;code>F0BE&lt;/code> 。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/f0be1.png"
+width="543"
+height="442"
+srcset="https://fallen.wang/p/mifare-crack/f0be1_hue85776b8aa6d63413d863c4bb78aab31_38865_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/f0be1_hue85776b8aa6d63413d863c4bb78aab31_38865_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="注意选择HEX模式,CRC-16校验"
+class="gallery-image"
+data-flex-grow="122"
+data-flex-basis="294px"
+>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/f0be2.png"
+width="549"
+height="424"
+srcset="https://fallen.wang/p/mifare-crack/f0be2_hu16b5c51d1813bf758fce256ed57beac3_37997_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/f0be2_hu16b5c51d1813bf758fce256ed57beac3_37997_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="CRC-16校验值相同"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="310px"
+>&lt;/p>
+&lt;p>同理,对表B的数据进行验证，校验值 依然是&lt;code>F0BE&lt;/code> 。也就是说，无论这个神秘的校验算法是什么，最终整个块的CRC-16 校验值是不变的，因此我们有了这样一个逆向思路：&lt;/p>
+&lt;blockquote>
+&lt;p>输入我想要的金额→校验算法对金额加密并输出到最后两字节→整体CRC-16 校验值不变，为&lt;code>F0BE&lt;/code> →穷举最后两字节16×16×16×16＝65536 种可能组合，与块中前14 个不变字节拼接并分别计算CRC-16 校验值→找到校验值同为&lt;code>F0BE&lt;/code> 的组合→其末尾两个字节即为我们需要的校验算法得到的数据&lt;/p>
+&lt;/blockquote>
+&lt;p>人工计算65536 个16 字节字符串显然不现实，这里使用Python 辅助。C 语言和Java 同理。&lt;/p>
+&lt;h1 id="四破解">四.破解&lt;/h1>
+&lt;p>(由于对CRC 并不熟悉，所以代码让ChatGPT 写了个模板，自己稍微改了改，这时候就觉得人工智能真牛逼QAQ)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">binascii&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">crcmod&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 定义计算CRC16校验值的函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">crc16&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">crc16_func&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crcmod&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">predefined&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Crc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;crc-16&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">crc16_func&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">crc16_func&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hexdigest&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 打开shuju.txt文件并穷举65536个字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;shuju.txt&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;w&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hex_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;请输入16进制数据：&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">65536&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">new_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">hex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">zfill&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">upper&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_data&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">new_data&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 打开shuju.txt文件并计算每个字符串的CRC16校验值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;shuju.txt&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;r&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lines&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">readlines&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 将字符串及其CRC16校验值输出到shuju_crc.txt中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;shuju_crc.txt&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;w&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">line&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">lines&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">binascii&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">unhexlify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">line&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">crc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crc16&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">line&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">crc&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>例如，将金额设置为100 元，在计算器中输入10000 ，可知对应的16 进制数值为&lt;code>2710&lt;/code> ，运行上述代码，输入前14 个不变字节&lt;code>0000271000000000000000000000&lt;/code> ，程序将会在末尾加上从&lt;code>0000&lt;/code> 递增到 &lt;code>FFFF&lt;/code> 的字符串，并将这65536 个新的字符串输出到&lt;code>shuju.txt&lt;/code> 中。接着对这些数据分别计算CRC-16 校验值，并将原始数据和对应的校验值输出到&lt;code>shuju_crc.txt&lt;/code> 中。&lt;/p>
+&lt;p>由于CRC-16 涉及到多项式计算，65536 个数据可能对CPU 有一定要求，以我为例，穷举过程只用了不到0.5 秒，计算CRC则用了约15 秒。结束后得到如下数据：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/8bb5.png"
+width="586"
+height="733"
+srcset="https://fallen.wang/p/mifare-crack/8bb5_hu9b5e445e627b6696f193371e15dd24f5_46873_480x0_resize_box_3.png 480w, https://fallen.wang/p/mifare-crack/8bb5_hu9b5e445e627b6696f193371e15dd24f5_46873_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="注意是shuju_crc.txt，不是shuju.txt"
+class="gallery-image"
+data-flex-grow="79"
+data-flex-basis="191px"
+>&lt;/p>
+&lt;p>按&lt;code>crtl&lt;/code>+&lt;code>F&lt;/code> 呼出查找界面，查找&lt;code>F0BE&lt;/code> 应该会有两个结果，一个是作为穷举数据出现在原字符串末尾的；另一个是作为CRC-16 计算结果，与原始字符串间隔了一个空格的，我们需要的是后者。如图，看到该字符串结尾是&lt;code>8BB5&lt;/code> ，即&lt;code>2710 &lt;/code>经过神秘校验算法得到的数值为&lt;code>8BB5&lt;/code> 。同理，我们对99.98 对应的16 进制数据&lt;code>270E&lt;/code> 进行如上操作，得到末尾两字节为&lt;code>EB9D&lt;/code> 。此时我们将&lt;code>00002710000000000000000000008BB5&lt;/code> 和&lt;code>0000270E00000000000000000000EB9D&lt;/code> 刷入第10 扇区的前两个块，然后任意消费验证，金额变成了100 元。至此M1 卡破解完毕。&lt;/p>
+&lt;hr>
+&lt;h1 id="五后续">五.后续&lt;/h1>
+&lt;p>仅仅是破解了CRC 校验并没有让我满足，毕竟至今我还未曾解开校验算法的神秘面纱。以及，每张卡的密钥是不同的，且似乎与卡号有着某种联系。遗憾的是对于异或、取余、取反等运算不够熟悉，且样本量太小，还没有头绪。先挖个坑吧，将来有机会一定补上。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/mifare-crack/caogao.jpg"
+width="4608"
+height="3131"
+srcset="https://fallen.wang/p/mifare-crack/caogao_hu7afe1bc5671a417c1f7b0e6df3eb7ff2_1103361_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/mifare-crack/caogao_hu7afe1bc5671a417c1f7b0e6df3eb7ff2_1103361_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="草稿"
+class="gallery-image"
+data-flex-grow="147"
+data-flex-basis="353px"
+>&lt;/p>
+&lt;p>&lt;strong>&lt;font color=#FF0000>本文仅为探讨M1 卡加密原理，文中所述卡片均已格式化并物理销毁，如有利用该算法恶意刷取金额，所造成的任何问题及由此产生的一切后果由您自行承担！&lt;/font>&lt;/strong>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>前端 on 沙多多的奇思妙想</title><link>https://fallen.wang/categories/%E5%89%8D%E7%AB%AF/</link><description>Recent content in 前端 on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 07 Apr 2023 11:53:14 +0800</lastBuildDate><atom:link href="https://fallen.wang/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>给博客换了个stack主题</title><link>https://fallen.wang/p/stack-build/</link><pubDate>Fri, 07 Apr 2023 11:53:14 +0800</pubDate><guid>https://fallen.wang/p/stack-build/</guid><description>&lt;img src="https://fallen.wang/p/stack-build/cover.jpg" alt="Featured image of post 给博客换了个stack主题" />&lt;p>写了两年的blog，因为一些不可抗力挂了。只有为数不多的几篇做了备份，遂转战GitHub托管静态博客。这近一年玩了玩Hexo、Jekyll和Hugo，感觉还是Hugo爽，渲染速度飞起。主题少，看这个Stack还挺好就试了试，结果踩了一堆坑，&lt;strong>而且这货的官方文档就是一坨答辩&lt;/strong>，相对来说用户也少一些，踩坑了也搜不到解决办法。&lt;/p>
+&lt;p>首先不推荐用他的快速模板，总是出bug。还是老实一点clone到本地，&lt;code>git clone https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack&lt;/code>，对&lt;code>config&lt;/code>进行修改后push到GitHub仓库。&lt;strong>这里有一个大坑&lt;/strong>：&lt;/p>
+&lt;p>GitHub默认push的是&lt;code>main&lt;/code>分支：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/stack-build/main_branch.jpg"
+width="758"
+height="302"
+srcset="https://fallen.wang/p/stack-build/main_branch_hu9a6780d04969979093e01e32cd1a0af4_20074_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/stack-build/main_branch_hu9a6780d04969979093e01e32cd1a0af4_20074_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="main_branch"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="602px"
+>&lt;/p>
+&lt;p>而Stack触发分支是&lt;code>master&lt;/code>分支：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/stack-build/master_branch.jpg"
+width="644"
+height="377"
+srcset="https://fallen.wang/p/stack-build/master_branch_hu5f583876a681aa20d559c65aea8678f7_21228_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/stack-build/master_branch_hu5f583876a681aa20d559c65aea8678f7_21228_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="master_branch"
+class="gallery-image"
+data-flex-grow="170"
+data-flex-basis="409px"
+>&lt;/p>
+&lt;p>若不将此处&lt;code>master&lt;/code>改为&lt;code>main&lt;/code>工作流是无法正常运行的。设置了&lt;code>main&lt;/code>分支后工作流会自动创建一个&lt;code>gh_page&lt;/code>分支，在设置里将GitHub Page设置为来自&lt;code>gh_page&lt;/code>分支即可正常展示。&lt;/p>
+&lt;p>接着是评论区，默认的是disqus，由于一些众所周知的原因在大陆是无法访问的。在&lt;code>params.toml&lt;/code>中似乎可以配置 其他评论插件，还没有仔细研究。一定要用disqus的话也可以使用disqusjs，或者用国外的vps写一个很简单的反向代理即可。&lt;del>不过相比之下Git talk更符合我的审美，况且本来就是部署在GitHub上的博客，何必再舍近求远呢&lt;/del> 更新：waline永远滴神( ･´ω`･ )&lt;/p>
+&lt;p>还有侧边目录又是一个大坑。不仅要在&lt;code>params.toml&lt;/code>中&lt;code>[artical]&lt;/code>添加&lt;code>toc = true&lt;/code>，还需要将&lt;code>markup.toml&lt;/code>中&lt;code>unsafe = false&lt;/code>改为&lt;code>unsafe = true&lt;/code>，否则无法加载html元素。此外，还有&lt;code>[tableOfContents]&lt;/code>中&lt;code>startLevel&lt;/code>需要设置为&lt;code>1&lt;/code>。TAT&lt;/p>
+&lt;p>待续&lt;/p></description></item></channel></rss>

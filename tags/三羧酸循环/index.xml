@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>三羧酸循环 on 沙多多的奇思妙想</title><link>https://fallen.wang/tags/%E4%B8%89%E7%BE%A7%E9%85%B8%E5%BE%AA%E7%8E%AF/</link><description>Recent content in 三羧酸循环 on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 30 May 2023 23:49:28 +0800</lastBuildDate><atom:link href="https://fallen.wang/tags/%E4%B8%89%E7%BE%A7%E9%85%B8%E5%BE%AA%E7%8E%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>生化循环汇总</title><link>https://fallen.wang/p/biochemistry-cycles/</link><pubDate>Tue, 30 May 2023 23:49:28 +0800</pubDate><guid>https://fallen.wang/p/biochemistry-cycles/</guid><description>&lt;img src="https://fallen.wang/p/biochemistry-cycles/cover.png" alt="Featured image of post 生化循环汇总" />&lt;hr>
+&lt;h1 id="参考人卫9-版生物化学与分子生物学维基百科">参考：人卫9 版生物化学与分子生物学，维基百科&lt;/h1>
+&lt;hr>
+&lt;h1 id="三羧酸循环">三羧酸循环&lt;/h1>
+&lt;p>&lt;img src="https://fallen.wang/p/biochemistry-cycles/TCA-cycle.png"
+width="905"
+height="695"
+srcset="https://fallen.wang/p/biochemistry-cycles/TCA-cycle_hu1b4185c4eac7f92206fa3d8b6d9a5af9_282376_480x0_resize_box_3.png 480w, https://fallen.wang/p/biochemistry-cycles/TCA-cycle_hu1b4185c4eac7f92206fa3d8b6d9a5af9_282376_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图源9 版生化教材P 100"
+class="gallery-image"
+data-flex-grow="130"
+data-flex-basis="312px"
+>&lt;/p>
+&lt;p>三羧酸循环是生物体内最重要的循环之一，是三大营养物质的代谢枢纽，通过脱氢提供还原当量从而进行电子传递和氧化磷酸化生成ATP 。&lt;/p>
+&lt;h2 id="过程">过程&lt;/h2>
+&lt;p>①来自丙酮酸脱氢生成的&lt;font color=#40e0d0>&lt;strong>乙酰CoA&lt;/strong>&lt;/font> 和&lt;font color=#40e0d0>&lt;strong>草酰乙酸&lt;/strong>&lt;/font>在&lt;font color=#eeee00>&lt;strong>柠檬酸合酶&lt;/strong>&lt;/font>作用下生成&lt;font color=#40e0d0>&lt;strong>柠檬酸&lt;/strong>&lt;/font>，此为&lt;strong>第一个&lt;/strong>&lt;font color=#eeee00>&lt;strong>限速步骤&lt;/strong>&lt;/font>；②&lt;font color=#40e0d0>&lt;strong>柠檬酸&lt;/strong>&lt;/font>经&lt;font color=#40e0d0>&lt;strong>顺乌头酸&lt;/strong>&lt;/font>转化为&lt;font color=#40e0d0>&lt;strong>异柠檬酸&lt;/strong>&lt;/font>；③&lt;font color=#40e0d0>&lt;strong>异柠檬酸&lt;/strong>&lt;/font>在&lt;font color=#eeee00>&lt;strong>异柠檬酸脱氢酶&lt;/strong>&lt;/font>作用下氧化脱羧转变为&lt;font color=#40e0d0>&lt;strong>α -酮戊二酸&lt;/strong>&lt;/font>，脱下的氢由&lt;font color=#40e0d0>&lt;strong>NAD&lt;sup>+ &lt;/sup>&lt;/strong>&lt;/font> 接受生成&lt;font color=#40e0d0>&lt;strong>NADH +H&lt;sup>+&lt;/sup>&lt;/strong>&lt;/font> ，此为&lt;strong>第一次&lt;/strong>&lt;font color=#eeee00>&lt;strong>氧化脱羧&lt;/strong>&lt;/font>，也是&lt;strong>第二个&lt;/strong>&lt;font color=#eeee00>&lt;strong>限速步骤&lt;/strong>&lt;/font>；④&lt;font color=#40e0d0>&lt;strong>α -酮戊二酸&lt;/strong>&lt;/font>在&lt;font color=#eeee00>&lt;strong>α -酮戊二酸脱氢酶复合体&lt;/strong>&lt;/font>作用下氧化脱羧生成&lt;font color=#40e0d0>&lt;strong>琥珀酰CoA&lt;/strong>&lt;/font> ，脱下的氢由&lt;font color=#40e0d0>&lt;strong>NAD&lt;sup>+ &lt;/sup>&lt;/strong>&lt;/font> 接受生成&lt;font color=#40e0d0>&lt;strong>NADH +H&lt;sup>+&lt;/sup>&lt;/strong>&lt;/font> ，此为&lt;strong>第二次&lt;/strong>氧化脱羧，也是&lt;strong>第三个&lt;/strong>&lt;font color=#eeee00>&lt;strong>限速步骤&lt;/strong>&lt;/font>；⑤&lt;font color=#40e0d0>&lt;strong>琥珀酰CoA&lt;/strong>&lt;/font> 在&lt;font color=#40e0d0>&lt;strong>琥珀酰CoA 合成酶&lt;/strong>&lt;/font>作用下水解生成&lt;font color=#40e0d0>&lt;strong>琥珀酸&lt;/strong>&lt;/font>，同时与&lt;font color=#40e0d0>&lt;strong>核苷二磷酸&lt;/strong>&lt;/font>偶联，是&lt;strong>唯一&lt;/strong>一次&lt;font color=#eeee00>&lt;strong>底物水平磷酸化&lt;/strong>&lt;/font>；⑥&lt;font color=#40e0d0>&lt;strong>琥珀酸&lt;/strong>&lt;/font>在&lt;font color=#40e0d0>&lt;strong>琥珀酸脱氢酶&lt;/strong>&lt;/font>作用下脱氢生成&lt;font color=#40e0d0>&lt;strong>延胡索酸&lt;/strong>&lt;/font>，脱下的氢由&lt;font color=#40e0d0>&lt;strong>FAD&lt;/strong>&lt;/font> 接受生成&lt;font color=#40e0d0>&lt;strong>FADH&lt;sub>2&lt;/sub>&lt;/strong>&lt;/font> ；⑦&lt;font color=#40e0d0>&lt;strong>延胡索酸&lt;/strong>&lt;/font>在&lt;font color=#40e0d0>&lt;strong>延胡索酸酶&lt;/strong>&lt;/font>作用下生成&lt;font color=#40e0d0>&lt;strong>苹果酸&lt;/strong>&lt;/font>；⑧&lt;font color=#40e0d0>&lt;strong>苹果酸&lt;/strong>&lt;/font>在&lt;font color=#40e0d0>&lt;strong>苹果酸脱氢酶&lt;/strong>&lt;/font>作用下脱氢生成&lt;font color=#40e0d0>&lt;strong>草酰乙酸&lt;/strong>&lt;/font>，脱下的氢由&lt;font color=#40e0d0>&lt;strong>NAD&lt;sup>+&lt;/sup>&lt;/strong>&lt;/font> 接受生成&lt;font color=#40e0d0>&lt;strong>NADH&lt;sup>+&lt;/sup>&lt;/strong>&lt;/font> 。&lt;/p>
+&lt;p>记忆口诀：&lt;code>草酰乙酰成柠檬，异柠檬又成α 酮，琥酰琥珀延胡索，苹果落在草丛中。&lt;/code>（来自天天师兄）&lt;/p>
+&lt;h2 id="特点">特点&lt;/h2>
+&lt;p>记住“1 ,2 ,3 ,4 ,5 ”&lt;/p>
+&lt;p>1 ：一次&lt;font color=#eeee00>&lt;strong>底物水平磷酸化&lt;/strong>&lt;/font>，第五步&lt;font color=#40e0d0>&lt;strong>琥珀酰CoA&lt;/strong>&lt;/font> 水解为&lt;font color=#40e0d0>&lt;strong>琥珀酸&lt;/strong>&lt;/font>时底物水平磷酸化，产生&lt;code>1 &lt;/code>分子ATP 。&lt;/p>
+&lt;p>2 ：两次脱羧，分别在第三步和第四步。&lt;/p>
+&lt;p>3 ：三个限速酶，依次分别是&lt;font color=#eeee00>&lt;strong>柠檬酸合酶&lt;/strong>&lt;/font>、&lt;font color=#eeee00>&lt;strong>异柠檬酸脱氢酶&lt;/strong>&lt;/font>、&lt;font color=#eeee00>&lt;strong>α -酮戊二酸脱氢酶&lt;/strong>&lt;/font>。&lt;/p>
+&lt;p>4 ：四次脱氢，第三步、第四步、第六步和第八步，其中第六步由&lt;font color=#40e0d0>&lt;strong>FAD&lt;/strong>&lt;/font> 受氢，其余三步均为&lt;font color=#40e0d0>&lt;strong>NAD&lt;sup>+&lt;/sup>&lt;/strong>&lt;/font> 。&lt;/p>
+&lt;p>5 ：循环过程中，共有五步产能：第三步产生&lt;code>2.5 &lt;/code> 分子ATP ，第四步产生&lt;code>2.5 &lt;/code>分子ATP ，第五步产生&lt;code>1&lt;/code> 分子ATP ，第六步产生&lt;code>1.5&lt;/code> 分子ATP ，第八步产生&lt;code>2.5&lt;/code> 分子ATP ，故一分子&lt;font color=#40e0d0>&lt;strong>乙酰CoA&lt;/strong>&lt;/font> 参与三羧酸循环产生&lt;code>2.5 +2.5 +1 +1.5 +2.5 = 10&lt;/code> 分子ATP 。由于一分子&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>进入糖酵解产生&lt;code>2&lt;/code> 分子&lt;font color=#40e0d0>&lt;strong>3 -磷酸甘油醛&lt;/strong>&lt;/font>，其后所有能量计算都要*2 ，故一分子&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>经过三羧酸循环产生&lt;code>20&lt;/code> 分子ATP 。&lt;/p>
+&lt;h2 id="意义">意义&lt;/h2>
+&lt;p>1 ：TCA 是三大营养物质分解产能的共同通路。三大营养物质分解代谢最终都产生&lt;font color=#40e0d0>&lt;strong>乙酰CoA&lt;/strong>&lt;/font> 进入TCA 而彻底氧化。TCA 并不直接产能，但是能提供足够的还原当量进入呼吸链，经氧化磷酸化产生大量ATP 。&lt;/p>
+&lt;p>2 ：TCA 是&lt;font color=#40e0d0>&lt;strong>糖&lt;/strong>&lt;/font>、&lt;font color=#40e0d0>&lt;strong>脂肪&lt;/strong>&lt;/font>、&lt;font color=#40e0d0>&lt;strong>氨基酸&lt;/strong>&lt;/font>代谢的联系枢纽，三大营养物质通过TCA 一定程度上相互转变。&lt;/p>
+&lt;h2 id="调节">调节&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">调节机制&lt;/th>
+&lt;th style="text-align:center">抑制剂&lt;/th>
+&lt;th style="text-align:center">激活剂&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>柠檬酸合酶&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">反馈抑制&lt;/td>
+&lt;td style="text-align:center">NADH 、琥珀酰CoA 、ATP 、柠檬酸&lt;/td>
+&lt;td style="text-align:center">ADP&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>异柠檬酸脱氢酶&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">反馈抑制&lt;/td>
+&lt;td style="text-align:center">ATP&lt;/td>
+&lt;td style="text-align:center">ADP 、Ca&lt;sup>2+&lt;/sup>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>α -酮戊二酸脱氢酶&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">反馈抑制&lt;/td>
+&lt;td style="text-align:center">ATP 、NADH 、琥珀酰CoA&lt;/td>
+&lt;td style="text-align:center">Ca&lt;sup>2+&lt;/sup>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h1 id="丙氨酸-葡萄糖循环">丙氨酸-葡萄糖循环&lt;/h1>
+&lt;p>&lt;img src="https://fallen.wang/p/biochemistry-cycles/glu-ala-cycle.png"
+width="968"
+height="461"
+srcset="https://fallen.wang/p/biochemistry-cycles/glu-ala-cycle_hueb1ca8e54f82dfffdef58fc7f2cb548b_151981_480x0_resize_box_3.png 480w, https://fallen.wang/p/biochemistry-cycles/glu-ala-cycle_hueb1ca8e54f82dfffdef58fc7f2cb548b_151981_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图源9 版生化教材P 182"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+>&lt;/p>
+&lt;p>&lt;font color=#40e0d0>&lt;strong>氨&lt;/strong>&lt;/font>在人体内有毒，在血液中以&lt;font color=#40e0d0>&lt;strong>丙氨酸&lt;/strong>&lt;/font>或&lt;font color=#40e0d0>&lt;strong>谷氨酰胺&lt;/strong>&lt;/font>两种形式运输。&lt;/p>
+&lt;h2 id="过程-1">过程&lt;/h2>
+&lt;p>骨骼肌通过转氨基作用将&lt;font color=#40e0d0>&lt;strong>丙酮酸&lt;/strong>&lt;/font>转化为&lt;font color=#40e0d0>&lt;strong>丙氨酸&lt;/strong>&lt;/font>，经血液到达肝脏后通过联合脱氨基作用生成&lt;font color=#40e0d0>&lt;strong>丙酮酸&lt;/strong>&lt;/font>并释放&lt;font color=#40e0d0>&lt;strong>氨&lt;/strong>&lt;/font>，&lt;font color=#40e0d0>&lt;strong>丙酮酸&lt;/strong>&lt;/font>经糖异生合成&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>，&lt;font color=#40e0d0>&lt;strong>氨&lt;/strong>&lt;/font>用于合成&lt;font color=#40e0d0>&lt;strong>尿素&lt;/strong>&lt;/font>。&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>经血到肌肉，糖酵解成为&lt;font color=#40e0d0>&lt;strong>丙酮酸&lt;/strong>&lt;/font>。&lt;/p>
+&lt;h2 id="意义-1">意义&lt;/h2>
+&lt;p>使肌肉中的&lt;font color=#40e0d0>&lt;strong>氨&lt;/strong>&lt;/font>以无毒的&lt;font color=#40e0d0>&lt;strong>丙氨酸&lt;/strong>&lt;/font>形式运送至肝，同时肝又提供了生成&lt;font color=#40e0d0>&lt;strong>丙酮酸&lt;/strong>&lt;/font>的&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>。&lt;/p>
+&lt;hr>
+&lt;h1 id="柠檬酸-丙酮酸循环">柠檬酸-丙酮酸循环&lt;/h1>
+&lt;h1 id="鸟氨酸循环">鸟氨酸循环&lt;/h1>
+&lt;h1 id="乳酸循环">乳酸循环&lt;/h1>
+&lt;p>&lt;img src="https://fallen.wang/p/biochemistry-cycles/cori-cycle.jpg"
+width="342"
+height="307"
+srcset="https://fallen.wang/p/biochemistry-cycles/cori-cycle_huca9f532f4e7a39db934bd28256dc8ebc_12836_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/biochemistry-cycles/cori-cycle_huca9f532f4e7a39db934bd28256dc8ebc_12836_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="图源9 版生化教材P 115"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="267px"
+>
+运动时肌细胞无氧呼吸导致&lt;font color=#40e0d0>&lt;strong>乳酸&lt;/strong>&lt;/font>大量堆积，而肌肉组织中无&lt;font color=#eeee00>&lt;strong>葡糖-6 -磷酸酶&lt;/strong>&lt;/font>，无法由&lt;font color=#40e0d0>&lt;strong>乳酸&lt;/strong>&lt;/font>糖异生，须经血液转运至肝脏。该循环涉及的糖代谢途径有糖酵解和糖异生。&lt;/p>
+&lt;p>&lt;code>2&lt;/code> 分子&lt;font color=#40e0d0>&lt;strong>乳酸&lt;/strong>&lt;/font>进入肝脏异生为&lt;font color=#40e0d0>&lt;strong>葡萄糖&lt;/strong>&lt;/font>需消耗&lt;code>6&lt;/code> 分子ATP 。&lt;/p>
+&lt;h2 id="生理意义">生理意义&lt;/h2>
+&lt;p>既能回收&lt;font color=#40e0d0>&lt;strong>乳酸&lt;/strong>&lt;/font>中的能量，又能避免&lt;font color=#40e0d0>&lt;strong>乳酸&lt;/strong>&lt;/font>堆积引起酸中毒。&lt;/p>
+&lt;h1 id="甲硫氨酸循环">甲硫氨酸循环&lt;/h1></description></item></channel></rss>

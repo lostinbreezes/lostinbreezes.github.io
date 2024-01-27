@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>plan on 沙多多的奇思妙想</title><link>https://fallen.wang/categories/plan/</link><description>Recent content in plan on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 07 May 2023 17:21:37 +0800</lastBuildDate><atom:link href="https://fallen.wang/categories/plan/index.xml" rel="self" type="application/rss+xml"/><item><title>未来规划</title><link>https://fallen.wang/p/future-plan/</link><pubDate>Sun, 07 May 2023 17:21:37 +0800</pubDate><guid>https://fallen.wang/p/future-plan/</guid><description>&lt;img src="https://fallen.wang/p/future-plan/cover.jpg" alt="Featured image of post 未来规划" /> &lt;iframe style="width: 100%; height: 100%" src="https://music.163.com/outchain/player?type=2&amp;id=65538&amp;auto=1&amp;height=66" frameborder="0"marginwidth="0" marginheight="0">&lt;/iframe>
+&lt;p>前一个博客因为&lt;strong>不可抗力&lt;/strong>挂了，到今天也快一年了，抽空搞了个新的。可惜好多文章没有备份，有点对不起曾经关注我支持我的朋友们。仅存的几篇2022年及之前的文章有些还涉及&lt;em>&lt;strong>魔法&lt;/strong>&lt;/em>之类的敏感技术，现在域名备案了不太方便再放出来 TAT~~（所谓不可抗力其实是vps服务商跑路了&amp;hellip;&amp;hellip;这个故事告诉我们&lt;strong>一定要备份！一定要备份！一定要备份！&lt;/strong>）~~&lt;/p>
+&lt;p>这个博客也基本建设好了，目前的想法是只保留技术性文章，随笔什么的将在不久后迁移到这里：&lt;a class="link" href="" >inspire.fallen.wang&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/future-plan/1.jpg"
+width="474"
+height="490"
+srcset="https://fallen.wang/p/future-plan/1_hu4f38cf8a13d3933bcdc15cb6faeb26fb_57974_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/future-plan/1_hu4f38cf8a13d3933bcdc15cb6faeb26fb_57974_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="96"
+data-flex-basis="232px"
+>&lt;/p>
+&lt;p>接下来准备备考699（生理生化病理诊断外科总论 鲨了我吧😭）大概不能像大一大二时那样腹泻式更新了&lt;/p>
+&lt;p>如果有空可能会更新这几个方面：&lt;/p>
+&lt;blockquote>
+&lt;p>神经网络&lt;/p>
+&lt;p>基础乐理&lt;/p>
+&lt;p>python相关&lt;/p>
+&lt;p>基础医学的笔记&lt;/p>
+&lt;/blockquote>
+&lt;p>牙膏要一点一点挤；显卡要一刀一刀切；提琴要一天一天锯，代码要一行一行写。再见咯&lt;/p>
+&lt;blockquote>
+&lt;p>_φ(❐_❐✧ 人丑就要多读书&lt;/p>
+&lt;p>(为什么颜文字显示不全&amp;hellip;)&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">lingling&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;yes&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hrs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Did you practice 40hrs today? (yes/no):&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">hrs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">lingling&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Bravo&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Go practice&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

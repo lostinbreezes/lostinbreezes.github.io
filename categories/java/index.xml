@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on 沙多多的奇思妙想</title><link>https://fallen.wang/categories/java/</link><description>Recent content in Java on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 31 Dec 2020 09:03:27 +0800</lastBuildDate><atom:link href="https://fallen.wang/categories/java/index.xml" rel="self" type="application/rss+xml"/><item><title>gradlew构建apk时报错</title><link>https://fallen.wang/p/gradle/</link><pubDate>Thu, 31 Dec 2020 09:03:27 +0800</pubDate><guid>https://fallen.wang/p/gradle/</guid><description>&lt;img src="https://fallen.wang/p/gradle/cover.jpg" alt="Featured image of post gradlew构建apk时报错" />&lt;blockquote>
+&lt;p>①**&lt;font color=#ff0000>简&lt;/font>&lt;font color=#ffa3c7>中&lt;/font>&lt;font color=#b5a3a7>互&lt;/font>&lt;font color=#f00fff>联&lt;/font>&lt;font color=#3d9142>网&lt;/font>&lt;font color=#4169e1>社&lt;/font>&lt;font color=#7fff00>区&lt;/font>&lt;font color=#ffd700>就&lt;/font>&lt;font color=#802a2a>是&lt;/font>&lt;font color=#4169e1>一&lt;/font>&lt;font color=#40e0d0>个&lt;/font>&lt;font color=#fff500>粪&lt;/font>&lt;font color=#33a1c9>坑&lt;/font>**&lt;/p>
+&lt;p>②&lt;strong>Fuck CSDN&lt;/strong>&lt;/p>
+&lt;p>③&lt;strong>Fuck Baidu&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;del>百度你就吃烂钱吧 迟早倒闭 还有csdn 呕 屏蔽csdn 人人有责&lt;/del>&lt;/p>
+&lt;p>&lt;del>许多问题去bing 上搜索效率能提高十倍 会魔法的直接去谷歌和Stack Overflow 这不比粪坑里淘金舒服？&lt;/del>&lt;/p>
+&lt;hr>
+&lt;p>在GitHub 上看到一个比较有意思的开源项目，但是只有源码没有&lt;code>release &lt;/code>，所以&lt;code>clone &lt;/code>到本地尝试运行&lt;code>gradlew.bat&lt;/code> 编译。命令行一闪而过，还没看清报错信息就没了。之前没有接触过gradle ,粪坑里搜了半天全是csdn 互相抄的不知所云的🐶💩，最后在某小众论坛看到有人提了一嘴，要在命令行中运行。&lt;/p>
+&lt;p>&lt;code>cd &lt;/code> 到项目目录再运行，果不其然又报错了：&lt;img src="https://fallen.wang/p/gradle/e1.jpg"
+width="1222"
+height="639"
+srcset="https://fallen.wang/p/gradle/e1_hu931b16557088f52b47a3c3cf16fd7cc2_53643_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/gradle/e1_hu931b16557088f52b47a3c3cf16fd7cc2_53643_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="458px"
+>&lt;/p>
+&lt;p>瞄了一眼项目目录似乎没有&lt;code>local.properties &lt;/code> ，那就新建一个。查了一下要在这个文件中声明SDK 的路径。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="n">sdk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">dir&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">C&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">Users&lt;/span>&lt;span class="err">\用户名\&lt;/span>&lt;span class="n">AppData&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">Local&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">Android&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">Sdk&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>再次运行，依然报错：&lt;img src="https://fallen.wang/p/gradle/e2.jpg"
+width="1195"
+height="378"
+srcset="https://fallen.wang/p/gradle/e2_hue3e1d675f738744e71d3891fc4a69c8a_34929_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/gradle/e2_hue3e1d675f738744e71d3891fc4a69c8a_34929_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="316"
+data-flex-basis="758px"
+>&lt;/p>
+&lt;p>这次的报错很明了：我们声明的SDK 的路径与报错中的路径不符，添加转义符即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="n">sdk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">dir&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">C&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">Users&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">Joe&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">AppData&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">Local&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">Android&lt;/span>&lt;span class="err">\\&lt;/span>&lt;span class="n">Sdk&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>再次运行批处理即可。&lt;/p>
+&lt;p>然而此时还未能构建出apk 安装包，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#清理build文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gradlew clean
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#打包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gradlew assembleRelease
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>报错：&lt;code>Error:Unable to start the daemon process.&lt;/code>&lt;/p>
+&lt;p>这时需要修改&lt;code>gradle.properties &lt;/code> 中&lt;code>org.gradle.jvmargs=-Xmx1536m &lt;/code> 一项，参数设置为&lt;code>1024&lt;/code> 。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/gradle/property.jpg"
+width="814"
+height="733"
+srcset="https://fallen.wang/p/gradle/property_hu64ff89970aad6509a495256135880e32_73047_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/gradle/property_hu64ff89970aad6509a495256135880e32_73047_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+>&lt;/p>
+&lt;p>继续运行，继续报错。&lt;code>Could not find tools.jar&lt;/code>&lt;/p>
+&lt;p>第一想法是Java环境变量没配置好。添加系统变量&lt;code>JAVA_HOME&lt;/code> ，值设定为Java根目录并编辑&lt;code>PATH&lt;/code> 变量，依然报错。于是点进Java目录一看，好家伙根本没有&lt;code>tools.jar&lt;/code> ，甚至没有&lt;code>jdk&lt;/code> ，只有&lt;code>jre&lt;/code> 。之前在其他电脑上安装Java 时改了一些安装设置，结果出现了各种莫名其妙的错误，所以这台电脑上我是以默认设置安装的，却还是出现了这种情况。关于错误原因粪坑里众说纷纭，忽然想到&lt;code>jdk&lt;/code> 是开发环境而&lt;code>jre&lt;/code> 是运行环境，或许Java官网有开发工具包什么的。果然，安装了&lt;code>Java SE Development Kit 8u371&lt;/code> 后解决了这一问题。&lt;/p>
+&lt;p>在另一个项目中还遇到了&lt;code>javac错误：找不到或无法加载主类 com.sun.tools.javac.Main&lt;/code>错误，这也是由于&lt;code>jdk&lt;/code> 安装出错造成的。正确安装并配置环境变量后，在命令行中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">javac -version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>出现了版本信息即为成功。&lt;/p>
+&lt;p>此时再次构建即可在&lt;code>app\build\outputs\apk\release&lt;/code>找到安装包。然而通过&lt;code>gradlew assembleRelease&lt;/code> 得到的安装包是&lt;code>app-release-unsigned.apk&lt;/code> 未签名的，无法直接安装，可以用Android Studio，或者手机上使用mt管理器进行签名并安装。也可以在构建时直接使用&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">gradle assembleDebug
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这样生成的是debug调试包，已经签名可以直接安装。&lt;/p>
+&lt;iframe src="heimu.html" scrolling="no" width="50" height="50" frameborder="0">&lt;/iframe></description></item></channel></rss>

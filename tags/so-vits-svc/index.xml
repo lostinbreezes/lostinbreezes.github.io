@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>so-vits-svc on 沙多多的奇思妙想</title><link>https://fallen.wang/tags/so-vits-svc/</link><description>Recent content in so-vits-svc on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 23 Apr 2023 23:57:19 +0800</lastBuildDate><atom:link href="https://fallen.wang/tags/so-vits-svc/index.xml" rel="self" type="application/rss+xml"/><item><title>云端部署so-vits-svc流程</title><link>https://fallen.wang/p/sovits/</link><pubDate>Sun, 23 Apr 2023 23:57:19 +0800</pubDate><guid>https://fallen.wang/p/sovits/</guid><description>&lt;img src="https://fallen.wang/p/sovits/cover.jpg" alt="Featured image of post 云端部署so-vits-svc流程" />&lt;p>[TOC]&lt;/p>
+&lt;h1 id="前言">前言：&lt;/h1>
+&lt;p>&lt;font color=#1E90FF>Apr 23,2023更新：现在已经可以正常访问,项目已存档并停止维护&lt;/font>:https://github.com/svc-develop-team/so-vits-svc&lt;/p>
+&lt;hr>
+&lt;p>&lt;font color=#1E90FF>更新：目前无法正常访问Github原项目地址，据说因为有人用它跑政治敏感的东西所以作者删库跑路了=_=如果属实那么只能手动上传整合包到服务器&lt;/font>，&lt;/p>
+&lt;hr>
+&lt;p>体验了一把最近很火的so-vits-svc ，效果确实不错，但是训练模型对低配显卡很不友好，实测GTX 1650要跑一个效果还行的模型（36 epoch ,20K+ steps ）需要接近十个小时。于是考虑在云端部署，对比了几个知名GPU 租借平台，最终选了恒源云的英伟达V100 16G （恒源云打钱！）这配置用来跑sovits 是绰绰有余了，1.5元/小时的价格也比较亲民。如果选用GeForce系列的游戏卡应该能进一步压缩成本，而且效果并不会差太多。写这篇文章时已经换到了RTX 3060 12G ,0.54/小时太香了😀以下均以恒源云为例，其他平台大同小异，注意文件目录。&lt;/p>
+&lt;blockquote>
+&lt;p>为什么不使用免费的Colab ：首先，由于&lt;em>&lt;strong>众所周知的原因&lt;/strong>&lt;/em>，大陆无法正常访问谷歌。其次，Colab 目前更改了服务策略，一段时间不使用将会收回资源，这对于需要长时间训练模型的程序来说是不可接受的。&lt;/p>
+&lt;p>如果你会&lt;em>&lt;strong>魔法&lt;/strong>&lt;/em>并且对于自己的&lt;em>&lt;strong>网络施法工具&lt;/strong>&lt;/em>有信心，可以试试在Colab 上部署： &lt;a class="link" href="https://colab.research.google.com/github/svc-develop-team/so-vits-svc/blob/4.0/sovits4_for_colab.ipynb" target="_blank" rel="noopener"
+>https://colab.research.google.com/github/svc-develop-team/so-vits-svc/blob/4.0/sovits4_for_colab.ipynb&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;font color=#7FFF00>关于该项目的&lt;strong>本地化&lt;/strong>使用，睿站已经有很详细的保姆级教程了，参见 https://www.bilibili.com/video/BV1H24y187Ko 本文只是介绍云端部署时的主要流程、遇到的报错及解决办法。&lt;/font>（一定要看！）&lt;/p>
+&lt;blockquote>
+&lt;p>一般情况下GPU 服务器均为Linux 系统，需要Windows 图形界面的可以去腾讯和阿里这些平台看看。关于上述视频发布的整合包只适用于Windows 系统，要在Linux 上运行可以考虑使用&lt;code>Wine &lt;/code> 。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h1 id="准备工作">准备工作&lt;/h1>
+&lt;p>租借一张显卡，创建一个实例，然后在公共网盘处授权，以便后续下载数据集。进入&lt;code>JupyterLab&lt;/code> ,选择&lt;code>terminal&lt;/code> 终端。依次执行下列命令下载cli 工具：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装cli&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -L https://download.gpushare.com/download/gpushare-cli-linux -o /usr/local/bin/gpushare-cli
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod u+x /usr/local/bin/gpushare-cli
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#验证是否安装成功&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果服务器抽风下载很慢建议复制https 地址到浏览器手动下载然后上传到实例。或者直接释放，重开一台实例。&lt;/p>
+&lt;p>依次执行下列命令安装解压工具：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install p7zip-full -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>将处理好的数据集压缩并上传到网盘。&lt;/p>
+&lt;h1 id="预处理">预处理&lt;/h1>
+&lt;p>准备工作就绪，下面开始部署项目。注意切换到数据盘&lt;code>cd hy-tmp&lt;/code> ,别把系统盘给干废了。先把项目扒到本地：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/svc-develop-team/so-vits-svc.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这时出现了第一个报错：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/sovits/e1.jpg"
+width="619"
+height="119"
+srcset="https://fallen.wang/p/sovits/e1_hu2e6e230a4dc37465aeed5f7d900a61b8_16122_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/sovits/e1_hu2e6e230a4dc37465aeed5f7d900a61b8_16122_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="error1"
+class="gallery-image"
+data-flex-grow="520"
+data-flex-basis="1248px"
+>&lt;/p>
+&lt;p>clone 出错，不用想，肯定是GFW 在作妖。~~GFW 你坏事做尽！~~如果是本地，我会直接改hosts 或者使用DevSideCar ，或者干脆开&lt;em>&lt;strong>魔法&lt;/strong>&lt;/em>全局加速，然而在Linux 上这些操作都比较繁琐，所以我会使用&lt;code>gitclone&lt;/code> 代理：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://gitclone.com/github.com/svc-develop-team/so-vits-svc.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这时应该很快就扒下来了。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#进入数据集目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /hy-tmp/so-vits-svc/dataset_raw
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#登陆网盘，注意用户名和密码是控制台的用户名密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli login -u 你的用户名 -p 你的密码
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以百度网盘为例&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">#展开网盘内容
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli baidu ls
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>找到已经处理好的数据集&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#下载数据集&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli baidu down /网盘中数据集的路径 /hy-tmp/so-vits-svc/dataset_raw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用&lt;code>7z&lt;/code>命令解压：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">7z x 数据集名称.zip -o/hy-tmp/so-vits-svc/dataset_raw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>unzip&lt;/code> 命令也是可以的，但是遇到大文件容易报错。&lt;/p>
+&lt;p>接下来安装运行库：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#回到上级目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /hy-tmp/so-vits-svc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装运行库，后续如果提示缺少某模块那就单独pip安装一次，例如pip install librosa&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install -r requirements.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>待安装完成后依次运行下列命令开始预处理：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#重采样&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">resample&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#预处理配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">preprocess_flist_config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#预处理hubert和f0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">preprocess_hubert_f0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此时出现第二次报错：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/sovits/e2.jpg"
+width="643"
+height="242"
+srcset="https://fallen.wang/p/sovits/e2_hu7b5db90ff83acd2ba33992b51dddb2d2_40284_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/sovits/e2_hu7b5db90ff83acd2ba33992b51dddb2d2_40284_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="error2"
+class="gallery-image"
+data-flex-grow="265"
+data-flex-basis="637px"
+>&lt;/p>
+&lt;p>缺少&lt;strong>checkpoint_best_legacy_500.pt&lt;/strong> 文件。文档中说这是一个预训练模型，我们可以&lt;code>wget&lt;/code> 下载：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget hubert/ http://obs.cstcloud.cn/share/obs/sankagenkeshi/checkpoint_best_legacy_500.pt -P /hy-tmp/so-vits-svc/hubert
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下载完成后再次执行&lt;code>python preprocess_hubert_f0.py&lt;/code> 。此时应该还有一次报错，但不影响运行，程序开始生成&lt;code>hubert&lt;/code> 和&lt;code>f0&lt;/code> 文件。&lt;/p>
+&lt;h1 id="训练">训练&lt;/h1>
+&lt;p>生成完毕后就可以开始训练了。由于训练需要很长时间，建议使用&lt;code>tmux&lt;/code> ，这样即使关闭了ssh 程序还能继续运行。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tmux new -s 会话名称
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在新建的会话窗口执行训练命令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">python&lt;/span> &lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">c&lt;/span> &lt;span class="n">configs&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">json&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="mi">44&lt;/span>&lt;span class="n">k&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>出现train epoch 时表示开始训练了。&lt;img src="https://fallen.wang/p/sovits/train.jpg"
+width="683"
+height="216"
+srcset="https://fallen.wang/p/sovits/train_hu98231c622709f99ee761a9b65f6d1d5d_36831_480x0_resize_q75_box.jpg 480w, https://fallen.wang/p/sovits/train_hu98231c622709f99ee761a9b65f6d1d5d_36831_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="train"
+class="gallery-image"
+data-flex-grow="316"
+data-flex-basis="758px"
+>&lt;/p>
+&lt;h1 id="推理">推理&lt;/h1>
+&lt;p>训练到合适的步数就可以开始推理，参考官方文档：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python inference_main.py -m &lt;span class="s2">&amp;#34;logs/44k/G_30400.pth&amp;#34;&lt;/span> -c &lt;span class="s2">&amp;#34;configs/config.json&amp;#34;&lt;/span> -s &lt;span class="s2">&amp;#34;nen&amp;#34;&lt;/span> -n &lt;span class="s2">&amp;#34;君の知らない物語-src.wav&amp;#34;&lt;/span> -t &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>其中&lt;code>-m&lt;/code> 是模型的路径，G 后面的数字代表训练步数；&lt;code>-c&lt;/code> 是配置文件的路径；&lt;code>-s&lt;/code> 是说话者的名字，也就是数据集文件夹的名称；&lt;/p>
+&lt;p>&lt;code>-n&lt;/code> 是歌声片段，需手动上传至&lt;code>/raw&lt;/code> 文件夹;&lt;code>-t&lt;/code> 是移调，正负值均可，如&lt;code>-12&lt;/code> 就是降低一个八度，&lt;code>7&lt;/code> 就是升高一个纯五度。&lt;/p>
+&lt;p>（QAQ乐理有什么难的？.jpg）其他可选参数见官方文档：https://github.com/svc-develop-team/so-vits-svc#-inference&lt;/p>
+&lt;p>如果觉得推理这一步过于复杂可以参考前述视频的整合包，那个有图形界面，而且相比于推理，吃的配置稍微低一些，GTX 1650 可以跑个30 秒左右的音频。可以在云端训练然后把训练好的模型下载到本地进行推理。&lt;/p>
+&lt;p>至此云端部署过程结束。这是直接&lt;code>git clone&lt;/code> 的项目，所以报错较少。如果头铁一定要在Linux 下运行适用于Windows 的整合包那么报错会非常多。&lt;/p>
+&lt;h1 id="qa">Q&amp;amp;A&lt;/h1>
+&lt;blockquote>
+&lt;p>Q：需要的环境和框架？&lt;/p>
+&lt;p>A：支持CUDA 的N 卡，Python 3.8 ，Pytorch 。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Q：如何查看显驱对应的CUDA版本？&lt;/p>
+&lt;p>A：Linux 使用&lt;code>nvcc -v&lt;/code> ,Windows 使用&lt;code>nvidia-smi.exe&lt;/code> ，注意CUDA版本大于等于11.7请下载11.7。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Q：看不懂的和CUDA有关的报错？&lt;/p>
+&lt;p>A：大概率爆显存了，改&lt;code>Batch Size&lt;/code> （参考前述视频）&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Q：CUDA版本不对？&lt;/p>
+&lt;p>A：安装这三个库（注意torch 、CUDA 以及系统版本，以CUDA11.7 、torch 1.13 、Windows 64 位为例）：①https://download.pytorch.org/whl/cu117/torch-1.13.0%2Bcu117-cp310-cp310-win_amd64.whl，②https://download.pytorch.org/whl/cu117/torchaudio-0.13.0%2Bcu117-cp310-cp310-win_amd64.whl ,③https://download.pytorch.org/whl/cu117/torchvision-0.14.0%2Bcu117-cp310-cp310-win_amd64.whl&lt;/p>
+&lt;p>由于&lt;strong>众所周知的原因&lt;/strong>这几个包下载会很慢，有能力请使用&lt;strong>魔法&lt;/strong>。下载完之后别忘了安装：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pip install .&lt;span class="se">\t&lt;/span>orch-1.13.0+cu117-cp310-cp310-win_amd64.whl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install .&lt;span class="se">\t&lt;/span>orchaudio-0.13.0+cu117-cp310-cp310-win_amd64.whl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install .&lt;span class="se">\t&lt;/span>orchvision-0.14.0+cu117-cp310-cp310-win_amd64.whl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Q：为什么运行不了整合包里的批处理？&lt;/p>
+&lt;p>A：那个是为Windows 写的，而你使用的是Linux 服务器。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装Wine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install wine
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#在Wine 中运行批处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Wine /hy-tmp/so-vits-svc/批处理名称.bat
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#如果上一条命令无效请在Wine 中运行命令行，在命令行中运行批处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Wine cmd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /hy-tmp/so-vits-svc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">批处理名称.bat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Q:明明是N 卡，但是还是提示不支持CPU 训练是怎么回事？&lt;/p>
+&lt;p>A:驱动或者CUDA 版本不对，无法识别。&lt;/p>
+&lt;/blockquote>
+&lt;p>其他报错请移步前述视频评论区。&lt;/p></description></item></channel></rss>

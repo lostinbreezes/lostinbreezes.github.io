@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on 沙多多的奇思妙想</title><link>https://fallen.wang/categories/windows/</link><description>Recent content in Windows on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 11 Aug 2023 10:23:44 +0800</lastBuildDate><atom:link href="https://fallen.wang/categories/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>永久禁用Windows自动更新</title><link>https://fallen.wang/p/fuck-windows-update/</link><pubDate>Fri, 11 Aug 2023 10:23:44 +0800</pubDate><guid>https://fallen.wang/p/fuck-windows-update/</guid><description>&lt;img src="https://fallen.wang/p/fuck-windows-update/19.png" alt="Featured image of post 永久禁用Windows自动更新" />&lt;h1 id="font-colorff3030fuck-windows-updatefont">&lt;font color=#ff3030>&lt;strong>fuck Windows update&lt;/strong>&lt;/font>&lt;/h1>
+&lt;p>&lt;del>&lt;em>&lt;strong>微软的阿三程序员什么时候暴毙啊&lt;/strong>&lt;/em>&lt;/del>&lt;/p>
+&lt;p>每次一开电脑看到这正在更新就烦，而且我是双系统，默认引导的是Linux，更新重启跟难产似的。&lt;/p>
+&lt;p>百度搜了搜，无外乎那几种互相抄袭的早被微软修复的解决办法，尝试了几个全然无效。&lt;del>很符合我对简中互联网粪坑的刻板印象&lt;/del>&lt;/p>
+&lt;p>偶然在红迪看到这个方法，&lt;a class="link" href="https://www.reddit.com/user/ikashanrat/comments/stsuwr/solved_how_to_disable_shitty_windows_updates/" target="_blank" rel="noopener"
+>SOLVED How to disable shitty Windows Updates permanently in Windows 10 guaranteed 100% !!&lt;/a>（&lt;font color=#eeee00>&lt;strong>此链接需要魔法&lt;/strong>&lt;/font>）标题写的Win 10，经我测试（2023年8月11日）Win 11依然有效&lt;/p>
+&lt;h2 id="免责声明">免责声明&lt;/h2>
+&lt;blockquote>
+&lt;p>禁用Windows自动更新&lt;font color=#ff3030>&lt;strong>可能会让您容易受到安全威胁&lt;/strong>&lt;/font>,如果您不知道自己在做什么，&lt;font color=#ff3030>&lt;strong>修改注册表可能会导致严重的系统问题&lt;/strong>&lt;/font>&lt;/p>
+&lt;p>如果电源中显示&lt;font color=#ff3030>&lt;strong>“更新并关闭”或“更新并重新启动”选项而不是“关闭”和“重新启动”&lt;/strong>&lt;/font>，请勿尝试此方法。如果是这种情况，请停止“Update Orchestrator Service”、“Windows Update”、“Windows Update Medic Service”这3个服务，然后确认“关机”和“重启”是否恢复。(或者先更新完毕再食用本教程)&lt;/p>
+&lt;p>该解决方法是&lt;font color=#ff3030>&lt;strong>完全可逆&lt;/strong>&lt;/font>的，因此如果您决定稍后启用更新，则可以这样做。&lt;/p>
+&lt;p>&lt;font color=#ff3030>&lt;strong>自带的应用商店Microsoft Store 将不再能够连接到互联网（已安装的程序不会受到影响&lt;/strong>&lt;/font> ，一旦过程逆转，将再次正常&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="操作步骤">操作步骤&lt;/h1>
+&lt;h2 id="禁用usosvcwaasmedicsvcwuauserv的读写权限">禁用&lt;strong>UsoSvc&lt;/strong>、&lt;strong>WaaSMedicSvc&lt;/strong>、&lt;strong>wuauserv&lt;/strong>的读写权限&lt;/h2>
+&lt;p>&lt;code>Win&lt;/code>+&lt;code>R&lt;/code>呼出运行窗口，输入&lt;code>regedit&lt;/code>回车运行，在注册表编辑器内找到如下路径：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>向下滚动找到&lt;code>UsoSvc&lt;/code>。右键&lt;code>UsoSvc&lt;/code>，选择&lt;code>权限&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/1.png"
+width="328"
+height="324"
+srcset="https://fallen.wang/p/fuck-windows-update/1_hu3a4cc43c8e6edd9dc8adcf5d74dbabb9_20422_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/1_hu3a4cc43c8e6edd9dc8adcf5d74dbabb9_20422_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="右键菜单中选择权限"
+class="gallery-image"
+data-flex-grow="101"
+data-flex-basis="242px"
+>&lt;/p>
+&lt;p>选择&lt;code>高级&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/2.png"
+width="531"
+height="639"
+srcset="https://fallen.wang/p/fuck-windows-update/2_hua31ce9882dd6c6ea5f32fecfc62e8dcb_32424_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/2_hua31ce9882dd6c6ea5f32fecfc62e8dcb_32424_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="高级选项"
+class="gallery-image"
+data-flex-grow="83"
+data-flex-basis="199px"
+>&lt;/p>
+&lt;p>选择&lt;code>更改&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/3.png"
+width="1147"
+height="733"
+srcset="https://fallen.wang/p/fuck-windows-update/3_hu4f459d75286e44ffd98d3b2bd72b578f_61910_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/3_hu4f459d75286e44ffd98d3b2bd72b578f_61910_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="更改所有者"
+class="gallery-image"
+data-flex-grow="156"
+data-flex-basis="375px"
+>&lt;/p>
+&lt;p>选择&lt;code>高级&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/4.png"
+width="684"
+height="404"
+srcset="https://fallen.wang/p/fuck-windows-update/4_hu0b64b29ac750e9a03966a281a695cc03_20496_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/4_hu0b64b29ac750e9a03966a281a695cc03_20496_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="高级"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="406px"
+>&lt;/p>
+&lt;p>选择&lt;code>立即查找&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/5.png"
+width="770"
+height="893"
+srcset="https://fallen.wang/p/fuck-windows-update/5_huf95b465f614aee3b5bbcdea7b94b93aa_36010_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/5_huf95b465f614aee3b5bbcdea7b94b93aa_36010_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="立即查找"
+class="gallery-image"
+data-flex-grow="86"
+data-flex-basis="206px"
+>&lt;/p>
+&lt;p>在下方选择&lt;code>Administrator&lt;/code>并点击&lt;code>确定&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/6.png"
+width="745"
+height="386"
+srcset="https://fallen.wang/p/fuck-windows-update/6_hu2020bf935575e392c4619d8aed1a298f_27511_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/6_hu2020bf935575e392c4619d8aed1a298f_27511_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Administrator"
+class="gallery-image"
+data-flex-grow="193"
+data-flex-basis="463px"
+>&lt;/p>
+&lt;p>选择&lt;code>确定&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/7.png"
+width="684"
+height="404"
+srcset="https://fallen.wang/p/fuck-windows-update/7_hucf335de760c8c11766e53500c1b6b4a0_21418_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/7_hucf335de760c8c11766e53500c1b6b4a0_21418_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="确定"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="406px"
+>&lt;/p>
+&lt;p>选择下方&lt;code>禁用继承&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/8.png"
+width="518"
+height="232"
+srcset="https://fallen.wang/p/fuck-windows-update/8_hucb0dd5cb07899a246a2ff540b430b550_9820_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/8_hucb0dd5cb07899a246a2ff540b430b550_9820_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="禁用继承"
+class="gallery-image"
+data-flex-grow="223"
+data-flex-basis="535px"
+>&lt;/p>
+&lt;p>在弹出的对话框选择第二项&lt;code>从此对象中删除所有已继承的权限&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/9.png"
+width="454"
+height="375"
+srcset="https://fallen.wang/p/fuck-windows-update/9_hua36c2b75427a89bbddb7ecf0aa034e59_28472_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/9_hua36c2b75427a89bbddb7ecf0aa034e59_28472_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="删除所有已继承的权限"
+class="gallery-image"
+data-flex-grow="121"
+data-flex-basis="290px"
+>&lt;/p>
+&lt;p>勾选&lt;code>使用可从此对象继承的权限项目替换所有子对象的权限项目&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/10.png"
+width="551"
+height="180"
+srcset="https://fallen.wang/p/fuck-windows-update/10_hu635bad4934e162bb63bbf971f0d224df_11375_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/10_hu635bad4934e162bb63bbf971f0d224df_11375_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="替换所有子对象的权限项目"
+class="gallery-image"
+data-flex-grow="306"
+data-flex-basis="734px"
+>&lt;/p>
+&lt;p>选择&lt;code>应用&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/11.png"
+width="420"
+height="274"
+srcset="https://fallen.wang/p/fuck-windows-update/11_hu6640fb1fc0a63312a65ebd1cc84cb5ac_6820_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/11_hu6640fb1fc0a63312a65ebd1cc84cb5ac_6820_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="应用"
+class="gallery-image"
+data-flex-grow="153"
+data-flex-basis="367px"
+>&lt;/p>
+&lt;p>弹出第一个警告对话框，选择&lt;code>是&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/12.png"
+width="554"
+height="260"
+srcset="https://fallen.wang/p/fuck-windows-update/12_hu4d0cc5a0ab6a01d903698d1527e41db9_14643_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/12_hu4d0cc5a0ab6a01d903698d1527e41db9_14643_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="是"
+class="gallery-image"
+data-flex-grow="213"
+data-flex-basis="511px"
+>&lt;/p>
+&lt;p>第二个警告对话框依旧选择&lt;code>是&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/13.png"
+width="558"
+height="260"
+srcset="https://fallen.wang/p/fuck-windows-update/13_huefe1fc9f6f5c031b2cd2701a610be680_13801_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/13_huefe1fc9f6f5c031b2cd2701a610be680_13801_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="是"
+class="gallery-image"
+data-flex-grow="214"
+data-flex-basis="515px"
+>&lt;/p>
+&lt;p>选择下方&lt;code>确定&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/14.png"
+width="429"
+height="202"
+srcset="https://fallen.wang/p/fuck-windows-update/14_hu8a3f836971883be2d244c9b392aa0262_5051_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/14_hu8a3f836971883be2d244c9b392aa0262_5051_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="确定"
+class="gallery-image"
+data-flex-grow="212"
+data-flex-basis="509px"
+>&lt;/p>
+&lt;p>此时所有组或用户均无权访问，选择&lt;code>确定&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/15.png"
+width="551"
+height="681"
+srcset="https://fallen.wang/p/fuck-windows-update/15_hubaba3a91af080fb91a907b87e1a89044_29567_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/15_hubaba3a91af080fb91a907b87e1a89044_29567_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="确定"
+class="gallery-image"
+data-flex-grow="80"
+data-flex-basis="194px"
+>&lt;/p>
+&lt;p>因为无权访问，此时应会报错，选择&lt;code>确定&lt;/code>即可。&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/16.png"
+width="454"
+height="214"
+srcset="https://fallen.wang/p/fuck-windows-update/16_hu88f7663c55ceb8849a355085ad4c17cf_12290_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/16_hu88f7663c55ceb8849a355085ad4c17cf_12290_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="确定"
+class="gallery-image"
+data-flex-grow="212"
+data-flex-basis="509px"
+>&lt;/p>
+&lt;p>对于同路径下的&lt;code>WaaSMedicSvc&lt;/code>和&lt;code>wuauserv&lt;/code>也执行上述操作。&lt;/p>
+&lt;h2 id="验证">验证&lt;/h2>
+&lt;p>&lt;code>win&lt;/code>+&lt;code>R&lt;/code>呼出运行，输入&lt;code>services.msc&lt;/code>打开服务窗口。在&lt;code>操作&lt;/code>菜单内选择&lt;code>刷新&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/17.png"
+width="1008"
+height="743"
+srcset="https://fallen.wang/p/fuck-windows-update/17_hu33725d1aaf8a8c272bdd31e716eca48f_316770_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/17_hu33725d1aaf8a8c272bdd31e716eca48f_316770_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="刷新"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+>&lt;/p>
+&lt;p>此时，&lt;code>Windows更新&lt;/code>、&lt;code>更新Orchestrator服务&lt;/code>和&lt;code>WaaSMedicSvc&lt;/code>均会在描述中包含错误信息：&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/18.png"
+width="1007"
+height="741"
+srcset="https://fallen.wang/p/fuck-windows-update/18_hu46f3d8bc878c8b7dd34ef026280e3ab5_313634_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/18_hu46f3d8bc878c8b7dd34ef026280e3ab5_313634_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="错误代码：5"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="326px"
+>&lt;/p>
+&lt;p>重启后再打开服务窗口这三项将不再出现。若在&lt;code>设置&lt;/code>中打开&lt;code>Windows更新&lt;/code>窗口，将会显示“出现错误”&lt;/p>
+&lt;p>&lt;img src="https://fallen.wang/p/fuck-windows-update/19.png"
+width="1361"
+height="442"
+srcset="https://fallen.wang/p/fuck-windows-update/19_hu05684357445af7c0f31215cefd7bd22f_23914_480x0_resize_box_3.png 480w, https://fallen.wang/p/fuck-windows-update/19_hu05684357445af7c0f31215cefd7bd22f_23914_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="出错"
+class="gallery-image"
+data-flex-grow="307"
+data-flex-basis="739px"
+>&lt;/p>
+&lt;p>至此Windows自动更新已被彻底关闭。如果想恢复自动更新，请参阅上方原贴链接。&lt;/p></description></item></channel></rss>

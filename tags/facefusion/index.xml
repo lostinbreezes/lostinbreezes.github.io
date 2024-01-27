@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>facefusion on 沙多多的奇思妙想</title><link>https://fallen.wang/tags/facefusion/</link><description>Recent content in facefusion on 沙多多的奇思妙想</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 27 Jan 2024 22:19:12 +0800</lastBuildDate><atom:link href="https://fallen.wang/tags/facefusion/index.xml" rel="self" type="application/rss+xml"/><item><title>云端部署FaceFusion-AI换脸</title><link>https://fallen.wang/p/facefusion/</link><pubDate>Sat, 27 Jan 2024 22:19:12 +0800</pubDate><guid>https://fallen.wang/p/facefusion/</guid><description>&lt;img src="https://fallen.wang/p/facefusion/cover.png" alt="Featured image of post 云端部署FaceFusion-AI换脸" />&lt;p>写在最前面：&lt;strong>有些步骤可能需要魔法&lt;/strong>&lt;/p>
+&lt;p>号称***“Next generation face swapper and enhancer ”***的Facefusion 上周发布了&lt;code>2.2.1&lt;/code> 版本。虽然对显卡要求没有以前的roop 和deepfake 那么夸张，但是GTX1650 跑起来还是比较吃力，所以决定云端部署。&lt;/p>
+&lt;p>这次依然是选择了老朋友恒源云，如果有动手能力也可以尝试白嫖Colab。&lt;/p>
+&lt;p>项目地址：https://github.com/facefusion/facefusion&lt;/p>
+&lt;p>官方文档：https://docs.facefusion.io/&lt;/p>
+&lt;p>这次创建镜像的时候选择的是&lt;code>PyTorch&lt;/code> &amp;gt;&lt;code>2.0.0&lt;/code> &amp;gt;&lt;code>Cuda11.8.0&lt;/code> 刚好符合项目需求。&lt;/p>
+&lt;h1 id="一文件下载">一、文件下载&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装cli&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -L https://download.gpushare.com/download/gpushare-cli-linux -o /usr/local/bin/gpushare-cli
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod u+x /usr/local/bin/gpushare-cli
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#验证是否安装成功&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这一步是为了后续的文件传输，具体可以参考我之前的博客：https://fallen.wang/p/sovits/&lt;/p>
+&lt;p>然后下载模型文件：&lt;em>&lt;strong>此链接由Bilibili用户 @AI百晓生 提供&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>&lt;a class="link" href="https://pan.baidu.com/s/1U_vsRu9ILHn9FQ_5iph-YQ?pwd=f86f" target="_blank" rel="noopener"
+>https://pan.baidu.com/s/1U_vsRu9ILHn9FQ_5iph-YQ?pwd=f86f&lt;/a>&lt;/p>
+&lt;p>*这是为Windows 系统准备的，Linux 只需要下载其中的&lt;code>models.7z&lt;/code>即可*&lt;/p>
+&lt;p>将项目clone 到本地：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/facefusion/facefusion
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果因为&lt;em>&lt;strong>众所周知的原因&lt;/strong>&lt;/em>导致clone 失败，请使用&lt;em>&lt;strong>魔法&lt;/strong>&lt;/em>，或者自行搭建&lt;em>&lt;strong>异次元通道&lt;/strong>&lt;/em>，当然也可以下载压缩包到本地手动上传：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /hy-tmp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#上传项目压缩包然后解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unzip facefusion-master.zip
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#创建模型目录，注意以.开头的文件夹是隐藏的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> facefusion-master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir .assets
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#下载模型文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gpushare-cli baidu down models.7z
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#解压，注意文件约6G需要使用7za命令解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">7za x /usr/local/bin/models.7z
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#将解压后的models文件夹移动至/.assets内&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv /models /hy-tmp/facefusion-master/.assets
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="二环境部署">二、环境部署&lt;/h1>
+&lt;h2 id="python">Python&lt;/h2>
+&lt;p>该项目使用的是&lt;code>Python3.10&lt;/code> ，而恒源云的Ubuntu 自带的是&lt;code>Python3.8&lt;/code> ，因此需要升级：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#更新包列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装依赖项&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install -y software-properties-common
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#添加Python3.10 的PPA 到源列表中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo add-apt-repository ppa:deadsnakes/ppa
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#若提示‘Press [ENTER] to continue or Ctrl-c to cancel adding it’则按回车&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装Python3.10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install -y python3.10
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#验证&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Python3.10 --version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="ffmpeg">FFmpeg&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install ffmpeg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若询问是否继续输入&lt;code>y&lt;/code>&lt;/p>
+&lt;h2 id="curl">cURL&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install curl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若询问是否继续输入&lt;code>y&lt;/code>&lt;/p>
+&lt;h2 id="虚拟环境">虚拟环境&lt;/h2>
+&lt;p>接着创建虚拟环境：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /hy-tmp/facefusion-master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python3.10 -m venv venv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此时却出现了这样一条报错：&lt;/p>
+&lt;p>&lt;font color=#ff3030>Error: Command &amp;lsquo;[&amp;rsquo;/hy-tmp/venv/bin/python3.10&amp;rsquo;, &amp;lsquo;-m&amp;rsquo;, &amp;rsquo;ensurepip&amp;rsquo;, &amp;lsquo;&amp;ndash;upgrade&amp;rsquo;, &amp;lsquo;&amp;ndash;default-pip&amp;rsquo;]&amp;rsquo; returned non-zero exit status 1.&lt;/font>&lt;/p>
+&lt;p>此时已经创建了venv ，报错是因为缺少&lt;code>ensurepip&lt;/code> 模块，具体原因尚不清楚。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#先把刚刚的venv删掉&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf venv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#重新创建不带pip的venv&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python3.10 -m venv --without-pip venv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#激活虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> venv/bin/activate
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="三安装项目">三、安装项目&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python install.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>报错：&lt;font color=#ff3030>ModuleNotFoundError: No module named &amp;lsquo;inquirer&amp;rsquo;&lt;/font>
+尝试&lt;code>pip&lt;/code> 却依然报错。&lt;/p>
+&lt;p>查阅了官方discord后发现也有人遇到过类似问题，版主给出的解决方法是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python -m pip install --upgrade pip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这时却提示缺少&lt;code>pip&lt;/code> ，因为刚刚创建虚拟环境的时候留了一个伏笔&lt;code>--without-pip venv&lt;/code>。手动装一个：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python get-pip.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安装了最新版&lt;code>pip&lt;/code> 之后就可以运行 &lt;code>install.py&lt;/code>了。&lt;/p>
+&lt;p>因为显卡是N卡，所以按方向键选择&lt;code>cuda&lt;/code>,选择两次。&lt;img src="https://fallen.wang/p/facefusion/cuda.png"
+width="487"
+height="337"
+srcset="https://fallen.wang/p/facefusion/cuda_hue6db1a205efefcb37953a136283cd962_10389_480x0_resize_box_3.png 480w, https://fallen.wang/p/facefusion/cuda_hue6db1a205efefcb37953a136283cd962_10389_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="cuda"
+class="gallery-image"
+data-flex-grow="144"
+data-flex-basis="346px"
+>
+耐心等待脚本执行完毕。
+大致看一眼没有报错便可进入下一步。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python run.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>当出现&lt;code>Running on local URL: http://127.0.0.1:7860&lt;/code>时即为成功启动了。此时服务器端访问&lt;code>127.0.0.1：7860&lt;/code>即可，但是毕竟服务器端没有图形化界面，所以可以在&lt;code>launch()&lt;/code>函数里设置&lt;code>share=True&lt;/code>以获得可供外网访问的链接：不过我个人更喜欢配置一个端口转发。&lt;/p>
+&lt;p>以xshell为例，连接至实例时需要提供主机、端口、用户和密码，这些都可以在控制台界面找到。
+&lt;img src="https://fallen.wang/p/facefusion/user.png"
+width="521"
+height="342"
+srcset="https://fallen.wang/p/facefusion/user_hu037a3405aabe8ad6fe3c30f8a6b6be05_15660_480x0_resize_box_3.png 480w, https://fallen.wang/p/facefusion/user_hu037a3405aabe8ad6fe3c30f8a6b6be05_15660_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="user"
+class="gallery-image"
+data-flex-grow="152"
+data-flex-basis="365px"
+>
+点击&lt;code>登录指令&lt;/code>的&lt;code>复制&lt;/code>按钮，得到如下信息：
+&lt;code>ssh -p 41624 root@i-2.gpushare.com&lt;/code>
+其中&lt;code>41624&lt;/code> 为端口，&lt;code>root&lt;/code> 为用户，&lt;code>i-2.gpushare.com&lt;/code> 为主机，密码则单独列出。
+新建会话，填写主机和端口，然后在侧边选项卡里找到&lt;code>SSH&lt;/code> &amp;gt; &lt;code>隧道&lt;/code>&amp;gt; &lt;code>添加&lt;/code>，如图示填写：
+&lt;img src="https://fallen.wang/p/facefusion/port.png"
+width="636"
+height="487"
+srcset="https://fallen.wang/p/facefusion/port_hu847fe2baf5811a4c09f5e63490096edc_28811_480x0_resize_box_3.png 480w, https://fallen.wang/p/facefusion/port_hu847fe2baf5811a4c09f5e63490096edc_28811_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="port"
+class="gallery-image"
+data-flex-grow="130"
+data-flex-basis="313px"
+>
+其中&lt;code>侦听端口&lt;/code>可随意填写。
+以&lt;code>ROOT&lt;/code> 身份登录，输入密码，成功建立会话后在本地浏览器中输入&lt;code>127.0.0.1:8888&lt;/code>即可访问web-ui。
+&lt;img src="https://fallen.wang/p/facefusion/webui.png"
+width="1920"
+height="1080"
+srcset="https://fallen.wang/p/facefusion/webui_hu4148f1445820120991c9481ae02315cd_195773_480x0_resize_box_3.png 480w, https://fallen.wang/p/facefusion/webui_hu4148f1445820120991c9481ae02315cd_195773_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="webui"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;p>BTW，该项目引用了开源的NSFW 检测，具体代码位于&lt;code>/facefusion/content_analyser.py&lt;/code>，可以尝试调整&lt;code>probability&lt;/code>值。&lt;/p></description></item></channel></rss>
