@@ -149,4 +149,4 @@ python run.py
 以`ROOT` 身份登录，输入密码，成功建立会话后在本地浏览器中输入`127.0.0.1:8888`即可访问web-ui。
 ![webui](webui.png)
 
-BTW，该项目引用了开源的NTFS检测，具体代码位于`/facefusion/content_analyser.py`，可以尝试调整`probability`值。
+BTW，该项目引用了开源的NSFW 检测，具体代码位于`/facefusion/content_analyser.py`，可以尝试调整`probability`值。
