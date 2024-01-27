@@ -3,7 +3,7 @@ title: 云端部署FaceFusion-AI换脸
 description: 就酱
 slug: facefusion
 date: 2024-01-27 22:19:12+0800
-image: cover.jpg
+image: cover.png
 categories:
     - 人工智能
 tags:
@@ -11,7 +11,7 @@ tags:
 ---
  写在最前面：**有些步骤可能需要魔法**
 
- 号称***“Next generation face swapper and enhancer ”***的Facefusion 上周发布了`2.2.1` 版本。虽然对显卡要求没有以前的roop 和deepfake 那么夸张，但是GTX1650 跑起来还是比较吃力，所以决定云端部署。
+号称***“Next generation face swapper and enhancer ”***的Facefusion 上周发布了`2.2.1` 版本。虽然对显卡要求没有以前的roop 和deepfake 那么夸张，但是GTX1650 跑起来还是比较吃力，所以决定云端部署。
 
  这次依然是选择了老朋友恒源云，如果有动手能力也可以尝试白嫖Colab。
 
@@ -149,5 +149,4 @@ python run.py
 以`ROOT` 身份登录，输入密码，成功建立会话后在本地浏览器中输入`127.0.0.1:8888`即可访问web-ui。
 ![webui](webui.png)
 
-BTW，该项目引用了开源的NTFS检测，<iframe src="heimu.html" scrolling="no" height="50" frameborder="0"></iframe>
-
+BTW，该项目引用了开源的NTFS检测，具体代码位于`/facefusion/content_analyser.py`，可以尝试调整`probability`值。
